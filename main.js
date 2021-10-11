@@ -17,9 +17,13 @@ var windowWidth = window.innerWidth;
 var windowHeight = window.innerHeight;
 var margin = 10;
 let walls;
+
+let plat1;
+
 var dimensions
 
-var newt, circle2, render, plat1, plat2, plat3, plat4, stick1, stick2, ball1, machine1, mouse, mouseConstraint
+var newt, circle2, render,  plat2, plat3, plat4, stick1, stick2, ball1, machine1, mouse, mouseConstraint
+var balls = []
 
 var domino = []
 
@@ -324,10 +328,16 @@ function setup() {
     world = engine.world
 
 
-    //canvas = createCanvas(w - margin, h - margin);
+ //   myCanvas = createCanvas(windowWidth - margin, windowHeight - margin);
     noCanvas()
 
-    walls = new Walls(20)
+    walls = new Walls(40)
+plat1 = new Ground(windowWidth/2, windowHeight*2/5, windowWidth/4, 20, {isStatic:true,
+render:{
+    fillStyle:"#000"}})
+
+
+    
 
     // newt = new nCradle(XS.NEWT.X, XS.NEWT.Y, XS.NEWT.NUMBER, XS.NEWT.SIZE, XS.NEWT.LENGHT);
 
@@ -337,12 +347,12 @@ function setup() {
     //     y: -2*XS.NEWT.LENGHT
     // });
 
-        for (let j = windowHeight*0.2; j < windowHeight-windowHeight*0.2; j=j+100) {
+//         for (let j = windowHeight*0.2; j < windowHeight-windowHeight*0.2; j=j+100) {
 
-let prob= Math.random()
-if(prob>0.587)
-            machine1 = new Machine(windowWidth*Math.random(), j, windowWidth/20, windowWidth/20);
-        }
+// let prob= Math.random()
+// if(prob>0.587)
+//             machine1 = new Machine(windowWidth*Math.random(), j, windowWidth/20, windowWidth/20);
+//         }
 
 
     // circle2 = new Box(10, 10, 10, 20, {
@@ -378,8 +388,11 @@ if(prob>0.587)
     // }));
 
     //render
+    //console.log(myCanvas)
     render = Render.create({
         element: document.body,
+      // canvas:myCanvas.canvas,
+      // context:myCanvas.drawingContext,
         engine: engine,
         options: {
             width: window.innerWidth,
@@ -415,7 +428,6 @@ if(prob>0.587)
     render.mouse = mouse;
 
 
-    var balls = []
     Events.on(mouseConstraint, "mousedown", () => {
         if (mouseConstraint.body && mouseConstraint.body.label === "ball1")
             myModal.show()
@@ -435,6 +447,7 @@ if(prob>0.587)
                 mass:1,
                 density:1
             })
+            balls.push(newB)
         }
 
     })
@@ -448,8 +461,11 @@ if(prob>0.587)
 }
 
 function draw() {
-    // console.log(newt.newtonsCradle.bodies[0].position)
-    // background(255, 255, 128);
+   // background(20,20,20);
+    // balls.forEach(element => {
+    //     element.show()
+    // });
+    // // console.log(newt.newtonsCradle.bodies[0].position)
     // // A rectangle
     // fill(200, 200, 200);
     // noStroke();

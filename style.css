@@ -1,37 +1,92 @@
 @font-face {
-	font-family: 'stick';
-	src: url('./Stick-Regular.ttf'); 
+  font-family: "stick";
+  src: url("./Stick-Regular.ttf");
 }
-
 
 html,
 body {
   height: 100%;
+  background-color: #010919;
 }
 
 body {
   align-items: center;
-  background-color: #ccc;
   display: flex;
   justify-content: center;
   margin: 0;
-
 }
-h1{
+.name {
   position: absolute;
-  font-size: 120px;
-  font-family:stick;
-  color: #ccc;
-  text-shadow: 2px 2px #000088;
-  z-index: 1;
-  bottom: 50px;
-
+  display: flex;
+  font-family: stick;
+  color: #010919;
+  /*
+ color: #00a;
+  */
+  text-shadow: 2px 2px #ccc;
+  top: 15vh;
 }
-h2{
+canvas{
+  z-index: 0;
+}
+.ricardo,
+.caetano {
+  display: flex;
+}
+.capital {
+  font-size: 10em;
+  display: flex;
+}
+.lower {
+  display: flex;
+  align-items: center;
+  font-size: 2em;
+}
+.title {
   position: absolute;
-  font-size: 40px;
-  font-family:stick;
+  font-family: stick;
   color: #005588;
   text-shadow: 2px 2px #001166;
-  z-index: 1;
+  z-index: 0;
+}
+.unselectable {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+@media only screen and (min-width: 768px) {
+  .name {
+    top: 13vh;
+  }
+  .capital {
+    font-size: 12em;
+  }
+  .lower {
+    font-size: 5em;
+  }
+}
+@media only screen and (min-width: 1366px) {
+  .name {
+    top: 12vh;
+  }
+  .capital {
+    font-size: 16em;
+  }
+  .lower {
+    font-size: 8em;
+  }
+}
+@media only screen and (min-width: 1920px) {
+  .name {
+    top: 10vh;
+  }
+  .capital {
+    font-size: 20em;
+  }
+  .lower {
+    font-size: 10em;
+  }
 }

@@ -83,8 +83,7 @@ class Circle {
         rotate(angle);
         noStroke();
         fill(255, 0, 255);
-        rectMode(CENTER);
-        ellipse(0, 0, this.w, this.h);
+        ellipse(0, 0, this.r*2);
         pop();
     }
 }
