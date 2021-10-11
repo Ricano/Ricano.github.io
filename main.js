@@ -17,42 +17,12 @@ var w = window.innerWidth;
 var h = window.innerHeight;
 var margin = 10;
 
-var rectW = 30
-var rectH = rectW / 8
+var dimensions
 
 var newt, circle2, render, plat1, plat2, plat3, plat4, stick1, stick2, ball1, machine1, mouse, mouseConstraint
 
 var domino = []
 
-
-
-var img;
-
-function preload() {
-    img = loadImage('./exo2.png');
-}
-
-
-
-
-
-//check screen size to assign corresponding values to bodys
-if (window.matchMedia("(max-width: 480px)").matches) {
-    rectW *= 480 * 0.01;
-    rectH *= 480 * 0.01;
-} else if (window.matchMedia("(max-width: 768px)").matches) {
-    rectW *= 4;
-    rectH *= 4;
-} else if (window.matchMedia("(max-width: 1024px)").matches) {
-    rectW *= 8;
-    rectH *= 8;
-} else if (window.matchMedia("(max-width: 1200px)").matches) {
-    rectW *= 16;
-    rectH *= 16;
-} else {
-    rectW *= 32;
-    rectH *= 32;
-}
 const XS = {
     NEWT: {
         X: w / 2 - 5 * w / 50,
@@ -242,7 +212,7 @@ const XS = {
     BALL1: {
         X: 292,
         Y: 80,
-        RADIUS: w / 50,
+        RADIUS: 50,
         OPTIONS: {
             restitution: 0.6,
             frictionStatic: 0.001,
@@ -320,6 +290,34 @@ const XS = {
     },
 }
 
+var img;
+
+function preload() {
+    img = loadImage('./exo2.png');
+}
+
+
+
+
+
+//check screen size to assign corresponding values to bodys
+if (window.matchMedia("(max-width: 480px)").matches) {
+   dimensions=XS
+} else if (window.matchMedia("(max-width: 768px)").matches) {
+    dimensions=XS
+
+} else if (window.matchMedia("(max-width: 1024px)").matches) {
+    dimensions=XS
+
+} else if (window.matchMedia("(max-width: 1200px)").matches) {
+    dimensions=XS
+
+} else {
+    dimensions=XS
+
+}
+
+
 
 function setup() {
     engine = Engine.create();
@@ -338,7 +336,8 @@ function setup() {
     //     y: -2*XS.NEWT.LENGHT
     // });
 
-    machine1 = new Machine(w / 2, h / 2, 100);
+    machine1 = new Machine(w / 2, h / 2, 100, 108);
+    machine2 = new Machine(w / 2, h /3+70, 100, 220);
 
 
     // circle2 = new Box(10, 10, 10, 20, {

@@ -93,44 +93,31 @@ class Circle {
 
 class Machine {
 
-    constructor(x, y, size) {
+    constructor(x, y, size, separation) {
         this.machine = Composite.create({
             label: 'machine'
         });
         this.size = size;
 
 
-        var xBox = Matter.Bodies.rectangle(x-size,  y, size, size/6, {
+        var xBox = Matter.Bodies.rectangle(x - separation, y, size*2, size / 8, {
             isStatic: true,
-            angle:1
+            angle: 1
 
         })
         Composite.addBody(this.machine, xBox);
 
 
-        var xBox2 = Matter.Bodies.rectangle(x+size,  y, size, size/6, {
+        var xBox2 = Matter.Bodies.rectangle(x + separation, y, size*2, size / 8, {
             isStatic: true,
-            angle:-1
+            angle: -1
 
         })
         Composite.addBody(this.machine, xBox2);
 
 
 
-        var xBox3 = Matter.Bodies.rectangle(x+size/2,  y+size*0.9, size, size/6, {
-            isStatic: true,
-            angle:-1
-
-        })
-        Composite.addBody(this.machine, xBox3);
-
-
-        var xBox4 = Matter.Bodies.rectangle(x-size/2,  y+size*0.9, size, size/6, {
-            isStatic: true,
-            angle:1
-
-        })
-        Composite.addBody(this.machine, xBox4);
+       
         Matter.World.add(engine.world, this.machine);
 
 
@@ -166,3 +153,4 @@ class Machine {
 
 
 }
+
