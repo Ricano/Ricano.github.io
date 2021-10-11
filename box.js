@@ -100,7 +100,7 @@ class Machine {
         this.size = size;
 
 
-        var xBox = Matter.Bodies.rectangle(x - separation, y, size*2, size / 8, {
+        var xBox = Matter.Bodies.rectangle(x - separation, y, size * 2, size / 8, {
             isStatic: true,
             angle: 1
 
@@ -108,7 +108,7 @@ class Machine {
         Composite.addBody(this.machine, xBox);
 
 
-        var xBox2 = Matter.Bodies.rectangle(x + separation, y, size*2, size / 8, {
+        var xBox2 = Matter.Bodies.rectangle(x + separation, y, size * 2, size / 8, {
             isStatic: true,
             angle: -1
 
@@ -117,7 +117,7 @@ class Machine {
 
 
 
-       
+
         Matter.World.add(engine.world, this.machine);
 
 
@@ -154,3 +154,23 @@ class Machine {
 
 }
 
+class Walls {
+    constructor(thickness, options={render:{fillStyle:"#010108"}}) {
+
+        this.bodies = []
+
+
+        let roof = Matter.Bodies.rectangle(windowWidth / 2, 0, windowWidth, thickness, options)
+        let floor = Matter.Bodies.rectangle(windowWidth / 2, windowHeight-thickness, windowWidth, thickness, options)
+        let leftWall = Matter.Bodies.rectangle(0, windowHeight/2, thickness, windowHeight, options)
+        let rightWall = Matter.Bodies.rectangle(windowWidth-thickness/2, windowHeight/2, thickness, windowHeight, options)
+        roof.isStatic = true;
+        floor.isStatic = true;
+        leftWall.isStatic = true;
+        rightWall.isStatic = true;
+
+        this.bodies.push(roof, floor, leftWall, rightWall)
+
+        Matter.World.add(engine.world, this.bodies);
+    }
+}
