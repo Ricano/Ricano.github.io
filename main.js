@@ -289,7 +289,7 @@ var domino = []
 //         }
 //     },
 // }
-const XS={}
+const XS = {}
 var img;
 
 function preload() {
@@ -302,18 +302,18 @@ function preload() {
 
 //check screen size to assign corresponding values to bodys
 if (window.matchMedia("(max-width: 480px)").matches) {
-   dimensions=XS
+    dimensions = XS
 } else if (window.matchMedia("(max-width: 768px)").matches) {
-    dimensions=XS
+    dimensions = XS
 
 } else if (window.matchMedia("(max-width: 1024px)").matches) {
-    dimensions=XS
+    dimensions = XS
 
 } else if (window.matchMedia("(max-width: 1200px)").matches) {
-    dimensions=XS
+    dimensions = XS
 
 } else {
-    dimensions=XS
+    dimensions = XS
 
 }
 
@@ -327,7 +327,7 @@ function setup() {
     //canvas = createCanvas(w - margin, h - margin);
     noCanvas()
 
-walls = new Walls(20)
+    walls = new Walls(20)
 
     // newt = new nCradle(XS.NEWT.X, XS.NEWT.Y, XS.NEWT.NUMBER, XS.NEWT.SIZE, XS.NEWT.LENGHT);
 
@@ -337,8 +337,12 @@ walls = new Walls(20)
     //     y: -2*XS.NEWT.LENGHT
     // });
 
-    machine1 = new Machine(windowWidth / 2, windowHeight / 2, 100, 108);
-    machine2 = new Machine(windowWidth / 2, windowHeight /3+70, 100, 220);
+        for (let j = windowHeight*0.2; j < windowHeight-windowHeight*0.2; j=j+100) {
+
+let prob= Math.random()
+if(prob>0.587)
+            machine1 = new Machine(windowWidth*Math.random(), j, windowWidth/20, windowWidth/20);
+        }
 
 
     // circle2 = new Box(10, 10, 10, 20, {
@@ -354,11 +358,11 @@ walls = new Walls(20)
 
     // upper platform
 
-   // plat1 = new Ground(XS.PLAT1.X, XS.PLAT1.Y, XS.PLAT1.WIDTH, XS.PLAT1.HEIGHT, XS.PLAT1.OPTIONS)
-   // plat2 = new Ground(XS.PLAT2.X, XS.PLAT2.Y, XS.PLAT2.WIDTH, XS.PLAT2.HEIGHT, XS.PLAT2.OPTIONS)
+    // plat1 = new Ground(XS.PLAT1.X, XS.PLAT1.Y, XS.PLAT1.WIDTH, XS.PLAT1.HEIGHT, XS.PLAT1.OPTIONS)
+    // plat2 = new Ground(XS.PLAT2.X, XS.PLAT2.Y, XS.PLAT2.WIDTH, XS.PLAT2.HEIGHT, XS.PLAT2.OPTIONS)
 
 
-  //  ball1 = new Circle(w / 4, h / 10, XS.BALL1.RADIUS, XS.BALL1.OPTIONS)
+    //  ball1 = new Circle(w / 4, h / 10, XS.BALL1.RADIUS, XS.BALL1.OPTIONS)
 
     // for (let i = 0; i < 6; i++) {
     //     let piece = new Box(XS.PIECE.X + i * XS.PIECE.HEIGHT * 2 / 3, XS.PIECE.Y, XS.PIECE.WIDTH, XS.PIECE.HEIGHT, XS.PIECE.OPTIONS)
@@ -380,12 +384,13 @@ walls = new Walls(20)
         options: {
             width: window.innerWidth,
             height: window.innerHeight,
-          //  showVelocity: true,
-           // showCollisions: true,
+            //  showVelocity: true,
+            // showCollisions: true,
             hasBounds: true,
             width: windowWidth - margin,
             height: windowHeight - margin,
-            wireframes: false
+            wireframes: false,
+            background: 'transparent'
         }
     });
 
@@ -415,16 +420,20 @@ walls = new Walls(20)
         if (mouseConstraint.body && mouseConstraint.body.label === "ball1")
             myModal.show()
         else {
-            var newB = new Circle(mouse.position.x, mouse.position.y-10, 20, {
+            var newB = new Circle(mouse.position.x, mouse.position.y - 10, windowWidth/100, {
                 restitution: 0.6,
                 frictionStatic: 0.001,
                 frictionAir: 0.001,
                 friction: 0,
-                force:{x:Math.random() * ((0.05) - (-0.05))  -0.05,
-                y:-0.085},
+                force: {
+                    x: Math.random() * ((0.05) - (-0.05)) - 0.05,
+                    y: -0.085
+                },
                 render: {
                     fillStyle: "#FF0000"
-                }
+                },
+                mass:1,
+                density:1
             })
         }
 

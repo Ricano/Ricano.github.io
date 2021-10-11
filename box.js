@@ -161,7 +161,7 @@ class Walls {
 
 
         let roof = Matter.Bodies.rectangle(windowWidth / 2, 0, windowWidth, thickness, options)
-        let floor = Matter.Bodies.rectangle(windowWidth / 2, windowHeight-thickness, windowWidth, thickness, options)
+        let floor = Matter.Bodies.rectangle(windowWidth / 3, windowHeight-thickness, windowWidth, thickness, options)
         let leftWall = Matter.Bodies.rectangle(0, windowHeight/2, thickness, windowHeight, options)
         let rightWall = Matter.Bodies.rectangle(windowWidth-thickness/2, windowHeight/2, thickness, windowHeight, options)
         roof.isStatic = true;
