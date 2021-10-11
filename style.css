@@ -23,7 +23,7 @@ h1{
   font-family:stick;
   color: #ccc;
   text-shadow: 2px 2px #000088;
-  z-index: -1;
+  z-index: 1;
   bottom: 50px;
 
 }
@@ -33,5 +33,5 @@ h2{
   font-family:stick;
   color: #005588;
   text-shadow: 2px 2px #001166;
-  z-index: -1;
+  z-index: 1;
 }
