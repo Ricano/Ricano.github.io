@@ -18,15 +18,19 @@ var windowHeight = window.innerHeight;
 var margin = 10;
 let walls;
 
-let plat1;
+let dimensions
 
-var dimensions
+let cup;
 
-var newt, circle2, render,  plat2, plat3, plat4, stick1, stick2, ball1, machine1, mouse, mouseConstraint
+let leftPlat, rightPlat;
+let platDim = {}
+
+
+
+var newt, circle2, render, plat2, plat3, plat4, stick1, stick2, ball1, machine1, mouse, mouseConstraint
 var balls = []
 
 var domino = []
-
 // const XS = {
 //     NEWT: {
 //         X: w / 2 - 5 * w / 50,
@@ -293,7 +297,101 @@ var domino = []
 //         }
 //     },
 // }
-const XS = {}
+const XS_DIM = {
+    CUP: {
+        'X': windowWidth * 0.5,
+        'Y': 260,
+        'SIZE': 40
+    },
+    LEFT_PLAT: {
+        'SIZE': 100,
+        'X':0,
+        'Y':100,
+        'ANGLE':0.1
+    },
+    RIGHT_PLAT: {
+        'SIZE': 100,
+        'X':windowWidth,
+        'Y':windowHeight * 0.2,
+        'ANGLE':0.1
+    }
+}
+const S_DIM = {
+    CUP: {
+        'X': windowWidth * 0.5,
+        'Y': 360,
+        'SIZE': 80
+    },
+    LEFT_PLAT: {
+        'X':0,
+        'Y':150,
+        'SIZE': 350,
+        'ANGLE':0.1
+    },
+    RIGHT_PLAT: {
+        'SIZE': 350,
+        'X':windowWidth,
+        'Y':windowHeight * 0.15,
+        'ANGLE':-0.1
+    }
+}
+const M_DIM ={
+    CUP: {
+        'X': windowWidth * 0.5,
+        'Y': 400,
+        'SIZE': 120
+    },
+    LEFT_PLAT: {
+        'X':0,
+        'Y':200,
+        'SIZE': 500,
+        'ANGLE':0.1
+    },
+    RIGHT_PLAT: {
+        'SIZE': 500,
+        'X':windowWidth,
+        'Y':windowHeight * 0.15,
+        'ANGLE':-0.1
+    }
+}
+const L_DIM ={
+    CUP: {
+        'X': windowWidth * 0.5,
+        'Y': 450,
+        'SIZE': 160
+    },
+    LEFT_PLAT: {
+        'X':windowWidth/5,
+        'Y':225,
+        'SIZE': 100,
+        'ANGLE':0.05
+    },
+    RIGHT_PLAT: {
+        'X':windowWidth -windowWidth/5,
+        'Y':225,
+        'SIZE': 1000,
+        'ANGLE':-0.05
+    }
+}
+const XL_DIM = {
+    CUP: {
+        'X': windowWidth * 0.5,
+        'Y': 600,
+        'SIZE': 160
+    },
+    LEFT_PLAT: {
+        'X':0,
+        'Y':300,
+        'SIZE': windowWidth*4/5,
+        'ANGLE':0.05
+    },
+    RIGHT_PLAT: {
+        'X':windowWidth,
+        'Y':300,
+        'SIZE': windowWidth*4/5,
+        'ANGLE':-0.05
+    }
+}
 var img;
 
 function preload() {
@@ -306,19 +404,18 @@ function preload() {
 
 //check screen size to assign corresponding values to bodys
 if (window.matchMedia("(max-width: 480px)").matches) {
-    dimensions = XS
+    dimensions = XS_DIM
 } else if (window.matchMedia("(max-width: 768px)").matches) {
-    dimensions = XS
+    dimensions = S_DIM
 
 } else if (window.matchMedia("(max-width: 1024px)").matches) {
-    dimensions = XS
+    dimensions = M_DIM
 
 } else if (window.matchMedia("(max-width: 1200px)").matches) {
-    dimensions = XS
+    dimensions = L_DIM
 
 } else {
-    dimensions = XS
-
+    dimensions = XL_DIM
 }
 
 
@@ -328,16 +425,21 @@ function setup() {
     world = engine.world
 
 
- //   myCanvas = createCanvas(windowWidth - margin, windowHeight - margin);
+    //   myCanvas = createCanvas(windowWidth - margin, windowHeight - margin);
     noCanvas()
 
     walls = new Walls(40)
-plat1 = new Ground(windowWidth/2, windowHeight*2/5, windowWidth/4, 20, {isStatic:true,
-render:{
-    fillStyle:"#000"}})
 
+    cup = new Machine(dimensions.CUP.X, dimensions.CUP.Y, dimensions.CUP.SIZE, {
+        isStatic: true,
+        render: {
+            fillStyle: "#000"
+        }
+    })
 
-    
+    leftPlat = new Ground(dimensions.LEFT_PLAT.X, dimensions.LEFT_PLAT.Y, dimensions.LEFT_PLAT.SIZE, dimensions.LEFT_PLAT.SIZE / 32,dimensions.LEFT_PLAT.ANGLE )
+    rightPlat = new Ground(dimensions.RIGHT_PLAT.X, dimensions.RIGHT_PLAT.Y, dimensions.RIGHT_PLAT.SIZE, dimensions.RIGHT_PLAT.SIZE / 32,dimensions.RIGHT_PLAT.ANGLE )
+
 
     // newt = new nCradle(XS.NEWT.X, XS.NEWT.Y, XS.NEWT.NUMBER, XS.NEWT.SIZE, XS.NEWT.LENGHT);
 
@@ -347,12 +449,12 @@ render:{
     //     y: -2*XS.NEWT.LENGHT
     // });
 
-//         for (let j = windowHeight*0.2; j < windowHeight-windowHeight*0.2; j=j+100) {
+    //         for (let j = windowHeight*0.2; j < windowHeight-windowHeight*0.2; j=j+100) {
 
-// let prob= Math.random()
-// if(prob>0.587)
-//             machine1 = new Machine(windowWidth*Math.random(), j, windowWidth/20, windowWidth/20);
-//         }
+    // let prob= Math.random()
+    // if(prob>0.587)
+    //             machine1 = new Machine(windowWidth*Math.random(), j, windowWidth/20, windowWidth/20);
+    //         }
 
 
     // circle2 = new Box(10, 10, 10, 20, {
@@ -391,8 +493,8 @@ render:{
     //console.log(myCanvas)
     render = Render.create({
         element: document.body,
-      // canvas:myCanvas.canvas,
-      // context:myCanvas.drawingContext,
+        // canvas:myCanvas.canvas,
+        // context:myCanvas.drawingContext,
         engine: engine,
         options: {
             width: window.innerWidth,
@@ -432,7 +534,7 @@ render:{
         if (mouseConstraint.body && mouseConstraint.body.label === "ball1")
             myModal.show()
         else {
-            var newB = new Circle(mouse.position.x, mouse.position.y - 10, windowWidth/100, {
+            var newB = new Circle(mouse.position.x, mouse.position.y - 10, windowWidth / 100, {
                 restitution: 0.6,
                 frictionStatic: 0.001,
                 frictionAir: 0.001,
@@ -444,8 +546,8 @@ render:{
                 render: {
                     fillStyle: "#FF0000"
                 },
-                mass:1,
-                density:1
+                mass: 1,
+                density: 1
             })
             balls.push(newB)
         }
@@ -461,7 +563,7 @@ render:{
 }
 
 function draw() {
-   // background(20,20,20);
+    // background(20,20,20);
     // balls.forEach(element => {
     //     element.show()
     // });

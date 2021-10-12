@@ -26,13 +26,14 @@ class Box {
     }
 }
 class Ground {
-    constructor(x, y, w, h, o = {
+    constructor(x, y, w, h, a=0, o = {
         restitution: 1,
         frictionStatic: 0,
         friction: 0,
         frictionAir: 0,
         density: 1,
-        isStatic: true
+        isStatic: true,
+        angle:a
     }) {
         this.body = Matter.Bodies.rectangle(x, y, w, h, o);
         Matter.World.add(world, this.body);
@@ -92,29 +93,35 @@ class Circle {
 
 class Machine {
 
-    constructor(x, y, size, separation) {
+    constructor(x, y, size,options ) {
         this.machine = Composite.create({
             label: 'machine'
         });
+
         this.size = size;
 
-
-        var xBox = Matter.Bodies.rectangle(x - separation, y, size * 2, size / 8, {
+        this.leftBody= Matter.Bodies.rectangle(x-size*0.9 , y, size * 2, size / 4, {
             isStatic: true,
             angle: 1
 
         })
-        Composite.addBody(this.machine, xBox);
-
-
-        var xBox2 = Matter.Bodies.rectangle(x + separation, y, size * 2, size / 8, {
+        this.rightBody=Matter.Bodies.rectangle(x+size*0.9 , y, size * 2, size / 4, {
             isStatic: true,
             angle: -1
 
         })
-        Composite.addBody(this.machine, xBox2);
+
+        this.bottomBody=Matter.Bodies.rectangle(x , y+size, size, size / 2, {
+            isStatic: true
+        })
 
 
+        Composite.addBody(this.machine, this.leftBody);
+        Composite.addBody(this.machine, this.rightBody);
+        Composite.addBody(this.machine, this.bottomBody);
+
+
+     
 
 
         Matter.World.add(engine.world, this.machine);
@@ -160,7 +167,7 @@ class Walls {
 
 
         let roof = Matter.Bodies.rectangle(windowWidth / 2, 0, windowWidth, thickness, options)
-        let floor = Matter.Bodies.rectangle(windowWidth / 3, windowHeight-thickness, windowWidth, thickness, options)
+        let floor = Matter.Bodies.rectangle(windowWidth / 3, windowHeight-thickness/2, windowWidth, thickness, options)
         let leftWall = Matter.Bodies.rectangle(0, windowHeight/2, thickness, windowHeight, options)
         let rightWall = Matter.Bodies.rectangle(windowWidth-thickness/2, windowHeight/2, thickness, windowHeight, options)
         roof.isStatic = true;
