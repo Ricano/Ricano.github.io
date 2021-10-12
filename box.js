@@ -26,14 +26,14 @@ class Box {
     }
 }
 class Ground {
-    constructor(x, y, w, h, a=0, o = {
+    constructor(x, y, w, h, a = 0, o = {
         restitution: 1,
         frictionStatic: 0,
         friction: 0,
         frictionAir: 0,
         density: 1,
         isStatic: true,
-        angle:a
+        angle: a
     }) {
         this.body = Matter.Bodies.rectangle(x, y, w, h, o);
         Matter.World.add(world, this.body);
@@ -84,7 +84,7 @@ class Circle {
         rotate(angle);
         noStroke();
         fill(255, 0, 255);
-        ellipse(0, 0, this.r*2);
+        ellipse(0, 0, this.r * 2);
         pop();
     }
 }
@@ -93,25 +93,25 @@ class Circle {
 
 class Machine {
 
-    constructor(x, y, size,options ) {
+    constructor(x, y, size, options) {
         this.machine = Composite.create({
             label: 'machine'
         });
 
         this.size = size;
 
-        this.leftBody= Matter.Bodies.rectangle(x-size*0.9 , y, size * 2, size / 4, {
+        this.leftBody = Matter.Bodies.rectangle(x - size * 0.9, y, size * 2, size / 4, {
             isStatic: true,
             angle: 1
 
         })
-        this.rightBody=Matter.Bodies.rectangle(x+size*0.9 , y, size * 2, size / 4, {
+        this.rightBody = Matter.Bodies.rectangle(x + size * 0.9, y, size * 2, size / 4, {
             isStatic: true,
             angle: -1
 
         })
 
-        this.bottomBody=Matter.Bodies.rectangle(x , y+size, size, size / 2, {
+        this.bottomBody = Matter.Bodies.rectangle(x, y + size, size, size / 2, {
             isStatic: true
         })
 
@@ -121,7 +121,7 @@ class Machine {
         Composite.addBody(this.machine, this.bottomBody);
 
 
-     
+
 
 
         Matter.World.add(engine.world, this.machine);
@@ -161,21 +161,35 @@ class Machine {
 }
 
 class Walls {
-    constructor(thickness, options={render:{fillStyle:"#F0F0F0"}}) {
+    constructor(thickness, options = {
+        render: {
+            fillStyle: "#F0F0F0"
+        }
+    }) {
 
         this.bodies = []
 
 
-        let roof = Matter.Bodies.rectangle(windowWidth / 2, 0, windowWidth , thickness, options)
-        let floor = Matter.Bodies.rectangle(windowWidth / 2-4*thickness, windowHeight, windowWidth, thickness, options)
-        let leftWall = Matter.Bodies.rectangle(0, windowHeight/2+4*thickness, thickness, windowHeight, options)
-        let rightWall = Matter.Bodies.rectangle(windowWidth, windowHeight/2+4*thickness, thickness, windowHeight, options)
+        let roof = Matter.Bodies.rectangle(windowWidth / 2, 0, windowWidth, thickness, options)
+        let floor = Matter.Bodies.rectangle(windowWidth / 2 - 4 * thickness, windowHeight, windowWidth, thickness, options)
+        let leftWall = Matter.Bodies.rectangle(0, windowHeight / 2 + 4 * thickness, thickness, windowHeight, options)
+        let rightWall = Matter.Bodies.rectangle(windowWidth, windowHeight / 2 + 4 * thickness, thickness, windowHeight, options)
         roof.isStatic = true;
         floor.isStatic = true;
         leftWall.isStatic = true;
         rightWall.isStatic = true;
+        let leftPlatform = Matter.Bodies.rectangle(0, leftWall.bounds.min.y, windowWidth*4/5, thickness/2, {angle:0.1, render: {
+            fillStyle: "#F0F0F0"
+        }})
+        leftPlatform.isStatic = true;
+       
+        let rightPlatform = Matter.Bodies.rectangle(windowWidth, rightWall.bounds.min.y, windowWidth*4/5, thickness/2, {angle:-0.1, render: {
+            fillStyle: "#F0F0F0"
+        }})
+        rightPlatform.isStatic = true;
 
-        this.bodies.push(roof, floor, leftWall, rightWall)
+        
+        this.bodies.push(roof, floor, leftWall, rightWall, leftPlatform, rightPlatform)
 
         Matter.World.add(engine.world, this.bodies);
     }

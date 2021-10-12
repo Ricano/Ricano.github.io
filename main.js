@@ -15,6 +15,20 @@ var MouseConstraint = Matter.MouseConstraint;
 
 var windowWidth = window.innerWidth;
 var windowHeight = window.innerHeight;
+
+
+const COLORS = {
+    "GREEN": "#38A544",
+    "YELLOW": "#E8D957",
+    "VIOLET": "#B8A1C7",
+    "DARK-BLUE": "#314E8B",
+    "BLUE": "#0077A5",
+    "BLACK": "#262629",
+    "RED": "#D8333A",
+    "PINK": "#E4718A",
+    "ORANGE": "#FA8A00"
+}
+
 //var margin = 10;
 let walls;
 
@@ -305,15 +319,15 @@ const XS_DIM = {
     },
     LEFT_PLAT: {
         'SIZE': 100,
-        'X':0,
-        'Y':100,
-        'ANGLE':0.1
+        'X': 0,
+        'Y': 100,
+        'ANGLE': 0.1
     },
     RIGHT_PLAT: {
         'SIZE': 100,
-        'X':windowWidth,
-        'Y':windowHeight * 0.2,
-        'ANGLE':0.1
+        'X': windowWidth,
+        'Y': windowHeight * 0.2,
+        'ANGLE': 0.1
     }
 }
 const S_DIM = {
@@ -323,54 +337,54 @@ const S_DIM = {
         'SIZE': 80
     },
     LEFT_PLAT: {
-        'X':0,
-        'Y':150,
+        'X': 0,
+        'Y': 150,
         'SIZE': 350,
-        'ANGLE':0.1
+        'ANGLE': 0.1
     },
     RIGHT_PLAT: {
         'SIZE': 350,
-        'X':windowWidth,
-        'Y':windowHeight * 0.15,
-        'ANGLE':-0.1
+        'X': windowWidth,
+        'Y': windowHeight * 0.15,
+        'ANGLE': -0.1
     }
 }
-const M_DIM ={
+const M_DIM = {
     CUP: {
         'X': windowWidth * 0.5,
         'Y': 400,
         'SIZE': 120
     },
     LEFT_PLAT: {
-        'X':0,
-        'Y':200,
+        'X': 0,
+        'Y': 200,
         'SIZE': 500,
-        'ANGLE':0.1
+        'ANGLE': 0.1
     },
     RIGHT_PLAT: {
         'SIZE': 500,
-        'X':windowWidth,
-        'Y':windowHeight * 0.15,
-        'ANGLE':-0.1
+        'X': windowWidth,
+        'Y': windowHeight * 0.15,
+        'ANGLE': -0.1
     }
 }
-const L_DIM ={
+const L_DIM = {
     CUP: {
         'X': windowWidth * 0.5,
         'Y': 450,
         'SIZE': 160
     },
     LEFT_PLAT: {
-        'X':windowWidth/5,
-        'Y':225,
+        'X': windowWidth / 5,
+        'Y': 225,
         'SIZE': 100,
-        'ANGLE':0.05
+        'ANGLE': 0.05
     },
     RIGHT_PLAT: {
-        'X':windowWidth -windowWidth/5,
-        'Y':225,
+        'X': windowWidth - windowWidth / 5,
+        'Y': 225,
         'SIZE': 1000,
-        'ANGLE':-0.05
+        'ANGLE': -0.05
     }
 }
 const XL_DIM = {
@@ -380,16 +394,16 @@ const XL_DIM = {
         'SIZE': 160
     },
     LEFT_PLAT: {
-        'X':0,
-        'Y':300,
-        'SIZE': windowWidth*4/5,
-        'ANGLE':0.05
+        'X': 0,
+        'Y': 300,
+        'SIZE': windowWidth * 4 / 5,
+        'ANGLE': 0.05
     },
     RIGHT_PLAT: {
-        'X':windowWidth,
-        'Y':300,
-        'SIZE': windowWidth*4/5,
-        'ANGLE':-0.05
+        'X': windowWidth,
+        'Y': 300,
+        'SIZE': windowWidth * 4 / 5,
+        'ANGLE': -0.05
     }
 }
 var img;
@@ -428,17 +442,17 @@ function setup() {
     //   myCanvas = createCanvas(windowWidth - margin, windowHeight - margin);
     noCanvas()
 
-    walls = new Walls(40)
+    walls = new Walls(32)
 
-    cup = new Machine(dimensions.CUP.X, dimensions.CUP.Y, dimensions.CUP.SIZE, {
-        isStatic: true,
-        render: {
-            fillStyle: "#000"
-        }
-    })
+    // cup = new Machine(dimensions.CUP.X, dimensions.CUP.Y, dimensions.CUP.SIZE, {
+    //     isStatic: true,
+    //     render: {
+    //         fillStyle: "#00FF00"
+    //     }
+    // })
 
-    leftPlat = new Ground(dimensions.LEFT_PLAT.X, dimensions.LEFT_PLAT.Y, dimensions.LEFT_PLAT.SIZE, dimensions.LEFT_PLAT.SIZE / 32,dimensions.LEFT_PLAT.ANGLE )
-    rightPlat = new Ground(dimensions.RIGHT_PLAT.X, dimensions.RIGHT_PLAT.Y, dimensions.RIGHT_PLAT.SIZE, dimensions.RIGHT_PLAT.SIZE / 32,dimensions.RIGHT_PLAT.ANGLE )
+    // leftPlat = new Ground(dimensions.LEFT_PLAT.X, dimensions.LEFT_PLAT.Y, dimensions.LEFT_PLAT.SIZE, dimensions.LEFT_PLAT.SIZE / 32, dimensions.LEFT_PLAT.ANGLE)
+    // rightPlat = new Ground(dimensions.RIGHT_PLAT.X, dimensions.RIGHT_PLAT.Y, dimensions.RIGHT_PLAT.SIZE, dimensions.RIGHT_PLAT.SIZE / 32, dimensions.RIGHT_PLAT.ANGLE)
 
 
     // newt = new nCradle(XS.NEWT.X, XS.NEWT.Y, XS.NEWT.NUMBER, XS.NEWT.SIZE, XS.NEWT.LENGHT);
