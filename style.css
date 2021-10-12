@@ -31,13 +31,13 @@ canvas{
   display: flex;
 }
 .capital {
-  font-size: 10em;
+  font-size: 8em;
   display: flex;
 }
 .lower {
   display: flex;
   align-items: center;
-  font-size: 2em;
+  font-size: 1.5em;
 }
 .title {
   position: absolute;
