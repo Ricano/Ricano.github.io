@@ -161,15 +161,15 @@ class Machine {
 }
 
 class Walls {
-    constructor(thickness, options={render:{fillStyle:"#010108"}}) {
+    constructor(thickness, options={render:{fillStyle:"#F0F0F0"}}) {
 
         this.bodies = []
 
 
-        let roof = Matter.Bodies.rectangle(windowWidth / 2, 0, windowWidth, thickness, options)
-        let floor = Matter.Bodies.rectangle(windowWidth / 3, windowHeight-thickness/2, windowWidth, thickness, options)
-        let leftWall = Matter.Bodies.rectangle(0, windowHeight/2, thickness, windowHeight, options)
-        let rightWall = Matter.Bodies.rectangle(windowWidth-thickness/2, windowHeight/2, thickness, windowHeight, options)
+        let roof = Matter.Bodies.rectangle(windowWidth / 2, 0, windowWidth , thickness, options)
+        let floor = Matter.Bodies.rectangle(windowWidth / 2-4*thickness, windowHeight, windowWidth, thickness, options)
+        let leftWall = Matter.Bodies.rectangle(0, windowHeight/2+4*thickness, thickness, windowHeight, options)
+        let rightWall = Matter.Bodies.rectangle(windowWidth, windowHeight/2+4*thickness, thickness, windowHeight, options)
         roof.isStatic = true;
         floor.isStatic = true;
         leftWall.isStatic = true;

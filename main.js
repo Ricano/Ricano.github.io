@@ -15,7 +15,7 @@ var MouseConstraint = Matter.MouseConstraint;
 
 var windowWidth = window.innerWidth;
 var windowHeight = window.innerHeight;
-var margin = 10;
+//var margin = 10;
 let walls;
 
 let dimensions
@@ -502,8 +502,6 @@ function setup() {
             //  showVelocity: true,
             // showCollisions: true,
             hasBounds: true,
-            width: windowWidth - margin,
-            height: windowHeight - margin,
             wireframes: false,
             background: 'transparent'
         }
