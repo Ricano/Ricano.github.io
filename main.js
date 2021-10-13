@@ -595,7 +595,7 @@ function setup() {
     // keep the mouse in sync with rendering
     render.mouse = mouse;
 
-    Events.on(mouseConstraint, "mouseup", () => {
+    Events.on(mouseConstraint, "mousedown", () => {
         if (mouseConstraint.body) {
 
             if (mouseConstraint.body.label === "loadButton") {
