@@ -38,7 +38,7 @@ let cup;
 
 let numberBallsInsideMachine;
 
-let loadButton, transformButton
+let loadButton
 let numberBallInsideMachine = 4
 
 let leftPlat, rightPlat;
@@ -486,7 +486,7 @@ function setup() {
         }
     })
 
-    loadButton = new Circle(windowWidth / 2, dimensions.BALL.RADIUS * 4, dimensions.BALL.RADIUS, {
+    loadButton = new Box(windowWidth / 2, dimensions.BALL.RADIUS * 2, dimensions.BALL.RADIUS * 2 * 1.618, dimensions.BALL.RADIUS * 2, {
         isStatic: true,
         label: "loadButton",
         render: {
@@ -498,7 +498,7 @@ function setup() {
         isStatic: true,
         label: "transformButton",
         render: {
-            fillStyle: "#fff"
+            fillStyle: COLORS.YELLOW
         }
     })
     transformButton['isActive'] = false;
@@ -667,7 +667,7 @@ function setup() {
 
                         World.remove(world, balls[i].body);
                         balls.splice(i, 1);
-                        if (++removed>1)
+                        if (++removed > 2)
                             break;
                     }
                 }
@@ -709,16 +709,25 @@ function setup() {
     // Matter.Engine.run(engine)
 
 }
+let titleString = document.getElementsByClassName('name')[0]
 
 function draw() {
+
+    let textShadow =
+        "2px 2px rgb(" + (floor(Math.random() * 255)).toString() + "," +
+        (floor(Math.random() * 255)).toString() + "," +
+        (floor(Math.random() * 255)).toString() + ")"
+    console.log(textShadow)
+    if (Math.random() < 0.1)
+        titleString.style.textShadow = textShadow
 
     Matter.Engine.update(engine, [delta = 16.666], [correction = 1])
 
     numberBallsInsideMachine = countBalls()
     transformButton.isActive = (numberBallsInsideMachine > 2)
+    transformButton.body.render.fillStyle = transformButton.isActive ? COLORS.GREEN : COLORS.YELLOW
 
 
-    console.log(numberBallsInsideMachine)
 
     // background(20,20,20);
     // balls.forEach(element => {
