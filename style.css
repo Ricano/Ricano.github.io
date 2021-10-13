@@ -21,7 +21,7 @@ body {
  color: #00a;
   */
   text-shadow: 2px 2px #ccc;
-  top: 15vh;
+  bottom: 15vh;
 }
 canvas{
   z-index: 0;
@@ -56,7 +56,7 @@ canvas{
 }
 @media only screen and (min-width: 768px) {
   .name {
-    top: 13vh;
+    bottom: 13vh;
   }
   .capital {
     font-size: 12em;
@@ -67,7 +67,7 @@ canvas{
 }
 @media only screen and (min-width: 1366px) {
   .name {
-    top: 12vh;
+    bottom: 12vh;
   }
   .capital {
     font-size: 16em;
@@ -78,7 +78,7 @@ canvas{
 }
 @media only screen and (min-width: 1920px) {
   .name {
-    top: 10vh;
+    bottom: 10vh;
   }
   .capital {
     font-size: 20em;

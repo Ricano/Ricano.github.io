@@ -312,10 +312,16 @@ var domino = []
 //     },
 // }
 const XS_DIM = {
+    BALL: {
+        RADIUS: 16,
+    },
+    WALL: {
+        SIZE: 16
+    },
     CUP: {
         'X': windowWidth * 0.5,
-        'Y': 260,
-        'SIZE': 40
+        'Y': windowHeight * 0.45,
+        'SIZE': 80
     },
     LEFT_PLAT: {
         'SIZE': 100,
@@ -331,10 +337,16 @@ const XS_DIM = {
     }
 }
 const S_DIM = {
+    BALL: {
+        RADIUS: 20,
+    },
+    WALL: {
+        SIZE: 20
+    },
     CUP: {
         'X': windowWidth * 0.5,
-        'Y': 360,
-        'SIZE': 80
+        'Y': windowHeight * 0.45,
+        'SIZE': 100
     },
     LEFT_PLAT: {
         'X': 0,
@@ -350,9 +362,15 @@ const S_DIM = {
     }
 }
 const M_DIM = {
+    BALL: {
+        RADIUS: 24,
+    },
+    WALL: {
+        SIZE: 24
+    },
     CUP: {
         'X': windowWidth * 0.5,
-        'Y': 400,
+        'Y': windowHeight * 0.45,
         'SIZE': 120
     },
     LEFT_PLAT: {
@@ -369,10 +387,16 @@ const M_DIM = {
     }
 }
 const L_DIM = {
+    BALL: {
+        RADIUS: 28,
+    },
+    WALL: {
+        SIZE: 28
+    },
     CUP: {
         'X': windowWidth * 0.5,
-        'Y': 450,
-        'SIZE': 160
+        'Y': windowHeight * 0.45,
+        'SIZE': 140
     },
     LEFT_PLAT: {
         'X': windowWidth / 5,
@@ -388,9 +412,15 @@ const L_DIM = {
     }
 }
 const XL_DIM = {
+    BALL: {
+        RADIUS: 32,
+    },
+    WALL: {
+        SIZE: 32
+    },
     CUP: {
         'X': windowWidth * 0.5,
-        'Y': 600,
+        'Y': windowHeight * 0.45,
         'SIZE': 160
     },
     LEFT_PLAT: {
@@ -425,7 +455,7 @@ if (window.matchMedia("(max-width: 480px)").matches) {
 } else if (window.matchMedia("(max-width: 1024px)").matches) {
     dimensions = M_DIM
 
-} else if (window.matchMedia("(max-width: 1200px)").matches) {
+} else if (window.matchMedia("(max-width: 1366px)").matches) {
     dimensions = L_DIM
 
 } else {
@@ -442,14 +472,29 @@ function setup() {
     //   myCanvas = createCanvas(windowWidth - margin, windowHeight - margin);
     noCanvas()
 
-    walls = new Walls(32)
+    walls = new Walls(dimensions.WALL.SIZE)
 
-    // cup = new Machine(dimensions.CUP.X, dimensions.CUP.Y, dimensions.CUP.SIZE, {
-    //     isStatic: true,
-    //     render: {
-    //         fillStyle: "#00FF00"
-    //     }
-    // })
+    cup = new Machine(dimensions.CUP.X, dimensions.CUP.Y, dimensions.CUP.SIZE, {
+        isStatic: true,
+        render: {
+            fillStyle: "#00FF00"
+        }
+    })
+    console.log(walls.thickness)
+    button1 = new Circle(walls.leftWall.bounds.max.x + walls.thickness, walls.leftWall.bounds.min.y + walls.thickness * 1.41, dimensions.BALL.RADIUS, {
+        isStatic: true,
+        label: "button1",
+        render: {
+            fillStyle: COLORS.RED
+        }
+    })
+    button2 = new Circle(walls.rightWall.bounds.min.x - walls.thickness, walls.leftWall.bounds.min.y + walls.thickness * 1.41, dimensions.BALL.RADIUS, {
+        isStatic: true,
+        label: "button2",
+        render: {
+            fillStyle: COLORS.BLUE
+        }
+    })
 
     // leftPlat = new Ground(dimensions.LEFT_PLAT.X, dimensions.LEFT_PLAT.Y, dimensions.LEFT_PLAT.SIZE, dimensions.LEFT_PLAT.SIZE / 32, dimensions.LEFT_PLAT.ANGLE)
     // rightPlat = new Ground(dimensions.RIGHT_PLAT.X, dimensions.RIGHT_PLAT.Y, dimensions.RIGHT_PLAT.SIZE, dimensions.RIGHT_PLAT.SIZE / 32, dimensions.RIGHT_PLAT.ANGLE)
@@ -541,30 +586,78 @@ function setup() {
     // keep the mouse in sync with rendering
     render.mouse = mouse;
 
-
     Events.on(mouseConstraint, "mousedown", () => {
-        if (mouseConstraint.body && mouseConstraint.body.label === "ball1")
-            myModal.show()
-        else {
-            var newB = new Circle(mouse.position.x, mouse.position.y - 10, windowWidth / 100, {
-                restitution: 0.6,
-                frictionStatic: 0.001,
-                frictionAir: 0.001,
-                friction: 0,
-                force: {
-                    x: Math.random() * ((0.05) - (-0.05)) - 0.05,
-                    y: -0.085
-                },
-                render: {
-                    fillStyle: "#FF0000"
-                },
-                mass: 1,
-                density: 1
-            })
-            balls.push(newB)
-        }
+        if (mouseConstraint.body) {
 
+            if (mouseConstraint.body.label === "button1") {
+                for (let i = 0; i < 3; i++) {
+
+                    var newB = new Circle(-dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
+                        restitution: 0.6,
+                        frictionStatic: 0.001,
+                        frictionAir: 0.001,
+                        friction: 0,
+                        force: {
+                            x: 0.01,
+                            y: 0
+                        },
+                        render: {
+                            fillStyle: COLORS.RED
+                        },
+                        mass: 1,
+                        density: 1
+                    })
+                }
+
+
+            }
+            if (mouseConstraint.body.label === "button2") {
+                for (let i = 0; i < 3; i++) {
+
+                    var newB = new Circle(windowWidth+dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
+                        restitution: 0.6,
+                        frictionStatic: 0.001,
+                        frictionAir: 0.001,
+                        friction: 0,
+                        force: {
+                            x: -0.01,
+                            y: 0
+                        },
+                        render: {
+                            fillStyle: COLORS.BLUE
+                        },
+                        mass: 1,
+                        density: 1
+                    })
+                }
+
+
+            }
+        }
     })
+    // Events.on(mouseConstraint, "mousedown", () => {
+    //     if (mouseConstraint.body && mouseConstraint.body.label === "ball1")
+    //         myModal.show()
+    //     else {
+    //         var newB = new Circle(mouse.position.x, mouse.position.y - 10, dimensions.BALL.RADIUS, {
+    //             restitution: 0.6,
+    //             frictionStatic: 0.001,
+    //             frictionAir: 0.001,
+    //             friction: 0,
+    //             force: {
+    //                 x: Math.random() * ((0.05) - (-0.05)) - 0.05,
+    //                 y: -0.085
+    //             },
+    //             render: {
+    //                 fillStyle: "#FF0000"
+    //             },
+    //             mass: 1,
+    //             density: 1
+    //         })
+    //         balls.push(newB)
+    //     }
+
+    // })
 
 
     // run the renderer
