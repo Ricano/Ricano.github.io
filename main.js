@@ -36,6 +36,9 @@ let dimensions
 
 let cup;
 
+let button1, button2, button3
+let numberBallInsideMachine=4
+
 let leftPlat, rightPlat;
 let platDim = {}
 
@@ -480,7 +483,7 @@ function setup() {
             fillStyle: "#00FF00"
         }
     })
-    console.log(walls.thickness)
+
     button1 = new Circle(walls.leftWall.bounds.max.x + walls.thickness, walls.leftWall.bounds.min.y + walls.thickness * 1.41, dimensions.BALL.RADIUS, {
         isStatic: true,
         label: "button1",
@@ -495,6 +498,15 @@ function setup() {
             fillStyle: COLORS.BLUE
         }
     })
+    console.log(cup)
+    button3 = new Circle(cup.bottomBody.position.x, cup.bottomBody.position.y + dimensions.BALL.RADIUS * 2, dimensions.BALL.RADIUS * 2, {
+        isStatic: true,
+        label: "button3",
+        render: {
+            fillStyle: "#fff"
+        }
+    })
+    button3['isActive'] = false;
 
     // leftPlat = new Ground(dimensions.LEFT_PLAT.X, dimensions.LEFT_PLAT.Y, dimensions.LEFT_PLAT.SIZE, dimensions.LEFT_PLAT.SIZE / 32, dimensions.LEFT_PLAT.ANGLE)
     // rightPlat = new Ground(dimensions.RIGHT_PLAT.X, dimensions.RIGHT_PLAT.Y, dimensions.RIGHT_PLAT.SIZE, dimensions.RIGHT_PLAT.SIZE / 32, dimensions.RIGHT_PLAT.ANGLE)
@@ -556,6 +568,8 @@ function setup() {
         // context:myCanvas.drawingContext,
         engine: engine,
         options: {
+            showPerformance: true,
+            showStats: true,
             width: window.innerWidth,
             height: window.innerHeight,
             //  showVelocity: true,
@@ -614,7 +628,7 @@ function setup() {
             if (mouseConstraint.body.label === "button2") {
                 for (let i = 0; i < 3; i++) {
 
-                    var newB = new Circle(windowWidth+dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
+                    var newB = new Circle(windowWidth + dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
                         restitution: 0.6,
                         frictionStatic: 0.001,
                         frictionAir: 0.001,
@@ -630,6 +644,26 @@ function setup() {
                         density: 1
                     })
                 }
+
+
+            }
+            if (mouseConstraint.body.label === "button3" && button3.isActive) {
+
+                    var newB = new Circle(windowWidth/2, button3.body.position.y+dimensions.BALL.RADIUS*2, dimensions.BALL.RADIUS*2, {
+                        restitution: 0.6,
+                        frictionStatic: 0.001,
+                        frictionAir: 0.001,
+                        friction: 0,
+                        force: {
+                            x: 0,
+                            y: 0
+                        },
+                        render: {
+                            fillStyle: COLORS.VIOLET
+                        },
+                        mass: 1,
+                        density: 1
+                    })
 
 
             }
@@ -668,6 +702,10 @@ function setup() {
 }
 
 function draw() {
+button3['isActive'] = canMachineGo()
+
+
+
     // background(20,20,20);
     // balls.forEach(element => {
     //     element.show()
@@ -695,4 +733,14 @@ function draw() {
 
 window.onresize = () => {
     location.reload();
+}
+
+
+
+function canMachineGo() {
+
+    if (numberBallInsideMachine < 4)
+        return false
+
+    return true
 }

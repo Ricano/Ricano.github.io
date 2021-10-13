@@ -102,17 +102,27 @@ class Machine {
 
         this.leftBody = Matter.Bodies.rectangle(x - size * 0.9, y, size * 1.5, size / 6, {
             isStatic: true,
-            angle: 1
+            angle: 1, render:{
+                visible:true,
+                //opacity:0.18,
+                fillStyle:"#FFF"}
 
         })
         this.rightBody = Matter.Bodies.rectangle(x + size * 0.9, y, size * 1.5, size / 6, {
             isStatic: true,
-            angle: -1
+            angle: -1, render:{
+                visible:true,
+                //opacity:0.18,
+                fillStyle:"#FFF"}
 
         })
 
         this.bottomBody = Matter.Bodies.rectangle(x, y +size*0.7, size, size / 3, {
-            isStatic: true
+            isStatic: true,
+            render:{
+                visible:true,
+                //opacity:0.18,
+                fillStyle:"#FFF"}
         })
 
 
