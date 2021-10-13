@@ -41,13 +41,17 @@ let numberBallsInsideMachine;
 let loadButton
 let numberBallInsideMachine = 4
 
+let balls = []
+let superBalls = []
+
+
+
 let leftPlat, rightPlat;
 let platDim = {}
 
 
 
 var newt, circle2, render, plat2, plat3, plat4, stick1, stick2, ball1, machine1, mouse, mouseConstraint
-var balls = []
 
 var domino = []
 // const XS = {
@@ -490,7 +494,9 @@ function setup() {
         isStatic: true,
         label: "loadButton",
         render: {
-            fillStyle: COLORS.GREEN
+            sprite: {
+                texture: "./redButton.png"
+            }
         }
     })
 
@@ -498,7 +504,9 @@ function setup() {
         isStatic: true,
         label: "transformButton",
         render: {
-            fillStyle: COLORS.YELLOW
+            sprite: {
+                texture: "./redButton.png"
+            }
         }
     })
     transformButton['isActive'] = false;
@@ -615,8 +623,6 @@ function setup() {
                         render: {
                             fillStyle: COLORS.RED
                         },
-                        mass: 1,
-                        density: 1
                     })
                     balls.push(redBall);
 
@@ -636,8 +642,6 @@ function setup() {
                         render: {
                             fillStyle: COLORS.BLUE
                         },
-                        mass: 1,
-                        density: 1
                     })
                     balls.push(blueBall);
                 }
@@ -646,33 +650,44 @@ function setup() {
             }
             if (mouseConstraint.body.label === "transformButton" && transformButton.isActive) {
 
-                var newB = new Circle(windowWidth / 2, transformButton.body.position.y + dimensions.BALL.RADIUS * 4, dimensions.BALL.RADIUS * 2, {
-                    restitution: 0.6,
-                    frictionStatic: 0.001,
-                    frictionAir: 0.001,
-                    friction: 0,
-                    force: {
-                        x: 0,
-                        y: 0
-                    },
-                    render: {
-                        fillStyle: COLORS.VIOLET
-                    },
-                    mass: 1,
-                    density: 1
-                })
-                let removed = 0
-                for (let i = 0; i < balls.length; i++) {
-                    if (balls[i].inMachine) {
 
-                        World.remove(world, balls[i].body);
-                        balls.splice(i, 1);
-                        if (++removed > 2)
-                            break;
+                setTimeout(() => {
+
+
+                    var newB = new Circle(windowWidth / 2, transformButton.body.position.y + dimensions.BALL.RADIUS * 4, dimensions.BALL.RADIUS * 2, {
+                        label: "superBall",
+                        restitution: 0.6,
+                        frictionStatic: 0.001,
+                        frictionAir: 0.001,
+                        friction: 0,
+                        force: {
+                            x: 0,
+                            y: 0
+                        },
+                        render: {
+                            fillStyle: COLORS.VIOLET
+                        },
+                    })
+                    let removed = 0
+                    for (let i = 0; i < balls.length; i++) {
+                        if (balls[i].inMachine) {
+
+                            World.remove(world, balls[i].body);
+                            balls.splice(i, 1);
+                            if (++removed > 2)
+                                break;
+                        }
                     }
-                }
 
 
+                    superBalls.push(newB);
+                }, 2000)
+
+
+            }
+            if (mouseConstraint.body.label === "superBall") {
+
+                myModal.show()
 
 
             }
@@ -714,10 +729,10 @@ let titleString = document.getElementsByClassName('name')[0]
 function draw() {
 
     let textShadow =
-        "2px 2px rgb(" + (floor(Math.random() * 255)).toString() + "," +
+        "5px 3px rgb(" + (floor(Math.random() * 255)).toString() + "," +
         (floor(Math.random() * 255)).toString() + "," +
         (floor(Math.random() * 255)).toString() + ")"
-    console.log(textShadow)
+
     if (Math.random() < 0.1)
         titleString.style.textShadow = textShadow
 
