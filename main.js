@@ -36,8 +36,10 @@ let dimensions
 
 let cup;
 
-let button1, button2, button3
-let numberBallInsideMachine=4
+let numberBallsInsideMachine;
+
+let loadButton, transformButton
+let numberBallInsideMachine = 4
 
 let leftPlat, rightPlat;
 let platDim = {}
@@ -484,29 +486,22 @@ function setup() {
         }
     })
 
-    button1 = new Circle(walls.leftWall.bounds.max.x + walls.thickness, walls.leftWall.bounds.min.y + walls.thickness * 1.41, dimensions.BALL.RADIUS, {
+    loadButton = new Circle(windowWidth / 2, dimensions.BALL.RADIUS * 4, dimensions.BALL.RADIUS, {
         isStatic: true,
-        label: "button1",
+        label: "loadButton",
         render: {
-            fillStyle: COLORS.RED
+            fillStyle: COLORS.GREEN
         }
     })
-    button2 = new Circle(walls.rightWall.bounds.min.x - walls.thickness, walls.leftWall.bounds.min.y + walls.thickness * 1.41, dimensions.BALL.RADIUS, {
+
+    transformButton = new Circle(cup.bottomBody.position.x, cup.bottomBody.position.y + dimensions.BALL.RADIUS * 2, dimensions.BALL.RADIUS * 2, {
         isStatic: true,
-        label: "button2",
-        render: {
-            fillStyle: COLORS.BLUE
-        }
-    })
-    console.log(cup)
-    button3 = new Circle(cup.bottomBody.position.x, cup.bottomBody.position.y + dimensions.BALL.RADIUS * 2, dimensions.BALL.RADIUS * 2, {
-        isStatic: true,
-        label: "button3",
+        label: "transformButton",
         render: {
             fillStyle: "#fff"
         }
     })
-    button3['isActive'] = false;
+    transformButton['isActive'] = false;
 
     // leftPlat = new Ground(dimensions.LEFT_PLAT.X, dimensions.LEFT_PLAT.Y, dimensions.LEFT_PLAT.SIZE, dimensions.LEFT_PLAT.SIZE / 32, dimensions.LEFT_PLAT.ANGLE)
     // rightPlat = new Ground(dimensions.RIGHT_PLAT.X, dimensions.RIGHT_PLAT.Y, dimensions.RIGHT_PLAT.SIZE, dimensions.RIGHT_PLAT.SIZE / 32, dimensions.RIGHT_PLAT.ANGLE)
@@ -600,13 +595,15 @@ function setup() {
     // keep the mouse in sync with rendering
     render.mouse = mouse;
 
-    Events.on(mouseConstraint, "mousedown", () => {
+    Events.on(mouseConstraint, "mouseup", () => {
         if (mouseConstraint.body) {
 
-            if (mouseConstraint.body.label === "button1") {
+            if (mouseConstraint.body.label === "loadButton") {
                 for (let i = 0; i < 3; i++) {
 
-                    var newB = new Circle(-dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
+                    var redBall = new Circle(-dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
+
+                        label: "redBall",
                         restitution: 0.6,
                         frictionStatic: 0.001,
                         frictionAir: 0.001,
@@ -621,14 +618,13 @@ function setup() {
                         mass: 1,
                         density: 1
                     })
+                    balls.push(redBall);
+
                 }
-
-
-            }
-            if (mouseConstraint.body.label === "button2") {
                 for (let i = 0; i < 3; i++) {
 
-                    var newB = new Circle(windowWidth + dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
+                    var blueBall = new Circle(windowWidth + dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
+                        label: "blueBall",
                         restitution: 0.6,
                         frictionStatic: 0.001,
                         frictionAir: 0.001,
@@ -643,27 +639,40 @@ function setup() {
                         mass: 1,
                         density: 1
                     })
+                    balls.push(blueBall);
                 }
 
 
             }
-            if (mouseConstraint.body.label === "button3" && button3.isActive) {
+            if (mouseConstraint.body.label === "transformButton" && transformButton.isActive) {
 
-                    var newB = new Circle(windowWidth/2, button3.body.position.y+dimensions.BALL.RADIUS*2, dimensions.BALL.RADIUS*2, {
-                        restitution: 0.6,
-                        frictionStatic: 0.001,
-                        frictionAir: 0.001,
-                        friction: 0,
-                        force: {
-                            x: 0,
-                            y: 0
-                        },
-                        render: {
-                            fillStyle: COLORS.VIOLET
-                        },
-                        mass: 1,
-                        density: 1
-                    })
+                var newB = new Circle(windowWidth / 2, transformButton.body.position.y + dimensions.BALL.RADIUS * 4, dimensions.BALL.RADIUS * 2, {
+                    restitution: 0.6,
+                    frictionStatic: 0.001,
+                    frictionAir: 0.001,
+                    friction: 0,
+                    force: {
+                        x: 0,
+                        y: 0
+                    },
+                    render: {
+                        fillStyle: COLORS.VIOLET
+                    },
+                    mass: 1,
+                    density: 1
+                })
+                let removed = 0
+                for (let i = 0; i < balls.length; i++) {
+                    if (balls[i].inMachine) {
+
+                        World.remove(world, balls[i].body);
+                        balls.splice(i, 1);
+                        if (++removed>1)
+                            break;
+                    }
+                }
+
+
 
 
             }
@@ -697,14 +706,19 @@ function setup() {
     // run the renderer
     Render.run(render);
 
-    Matter.Engine.run(engine)
+    // Matter.Engine.run(engine)
 
 }
 
 function draw() {
-button3['isActive'] = canMachineGo()
+
+    Matter.Engine.update(engine, [delta = 16.666], [correction = 1])
+
+    numberBallsInsideMachine = countBalls()
+    transformButton.isActive = (numberBallsInsideMachine > 2)
 
 
+    console.log(numberBallsInsideMachine)
 
     // background(20,20,20);
     // balls.forEach(element => {
@@ -736,11 +750,30 @@ window.onresize = () => {
 }
 
 
+function countBalls() {
+    let leftBound = cup.leftBody.position.x
+    let rightBound = cup.rightBody.position.x
+    let upperBound = cup.rightBody.bounds.min.y
+    let bottomBound = cup.bottomBody.position.y
+    let numberOfBalls = 0;
 
-function canMachineGo() {
 
-    if (numberBallInsideMachine < 4)
-        return false
+    for (let i = 0; i < balls.length; i++) {
+        if (balls[i].body.position.x > leftBound &&
+            balls[i].body.position.x < rightBound &&
+            balls[i].body.position.y > upperBound &&
+            balls[i].body.position.y < bottomBound
+        )
+            balls[i].inMachine = true;
+        else
+            balls[i].inMachine = false;
+    }
 
-    return true
+    for (let i = 0; i < balls.length; i++) {
+
+        if (balls[i].inMachine)
+            numberOfBalls++;
+
+    }
+    return numberOfBalls
 }

@@ -73,6 +73,8 @@ class Circle {
         this.body = Matter.Bodies.circle(x, y, r, o);
         Matter.World.add(world, this.body);
         this.r = r;
+        this.inMachine=false;
+        
     }
 
 
