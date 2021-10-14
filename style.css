@@ -88,8 +88,17 @@ canvas{
   }
 }
 
-
-
+.modal-content{
+  align-items: center;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+}
+.modal-header{
+}
+.modal-dialog-centered{
+  justify-content: center;
+}
 .modal.fade .modal-dialog {
   transform: translate3D(0, 100vh, 0);
 }

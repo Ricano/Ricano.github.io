@@ -17,17 +17,7 @@ var windowWidth = window.innerWidth;
 var windowHeight = window.innerHeight;
 
 
-const COLORS = {
-    "GREEN": "#38A544",
-    "YELLOW": "#E8D957",
-    "VIOLET": "#B8A1C7",
-    "DARK-BLUE": "#314E8B",
-    "BLUE": "#0077A5",
-    "BLACK": "#262629",
-    "RED": "#D8333A",
-    "PINK": "#E4718A",
-    "ORANGE": "#FA8A00"
-}
+
 
 //var margin = 10;
 let walls;
@@ -445,10 +435,8 @@ const XL_DIM = {
         'ANGLE': -0.05
     }
 }
-var img;
 
 function preload() {
-    img = loadImage('./exo2.png');
 }
 
 
@@ -607,11 +595,13 @@ function setup() {
         if (mouseConstraint.body) {
 
             if (mouseConstraint.body.label === "loadButton") {
+                myModal.show()
+
                 for (let i = 0; i < 3; i++) {
 
                     var redBall = new Circle(-dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
                         label: "redBall",
-                        slope:0,
+                        slope: 0,
                         restitution: 0.6,
                         frictionStatic: 0.001,
                         frictionAir: 0.001,
@@ -631,7 +621,7 @@ function setup() {
 
                     var blueBall = new Circle(windowWidth + dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
                         label: "blueBall",
-                        slope:0,
+                        slope: 0,
                         restitution: 0.6,
                         frictionStatic: 0.001,
                         frictionAir: 0.001,
@@ -664,10 +654,7 @@ function setup() {
                         force: {
                             x: 0,
                             y: 0
-                        },
-                        render: {
-                            fillStyle: COLORS.VIOLET
-                        },
+                        }
                     })
                     let removed = 0
                     for (let i = 0; i < balls.length; i++) {
@@ -679,18 +666,45 @@ function setup() {
                                 break;
                         }
                     }
+                    if (Math.random() < 0.5) {
+                        newB.body.title = MODAL_INFO.project1.title
+                        newB.body['image'] = MODAL_INFO.project1.image
+                        newB.body['link'] = MODAL_INFO.project1.link
+                        newB.body.render.fillStyle= MODAL_INFO.project1.color
 
+                    } else {
+                        newB.body['title'] = MODAL_INFO.project2.title
+                        newB.body['image'] = MODAL_INFO.project2.image
+                        newB.body['link'] = MODAL_INFO.project2.link
+                        newB.body.render.fillStyle= MODAL_INFO.project2.color
+
+
+                    }
 
                     superBalls.push(newB);
-                }, 2000)
+                }, 200)
 
 
             }
             if (mouseConstraint.body.label === "superBall") {
-               dispatchEvent(new MouseEvent('mouseup'))
-               // World.remove(world, mouseConstraint.body);
-                
-                myModal.show()
+
+                let modal = document.getElementById("modal-content")
+
+                let titleElement = document.getElementById("modal-title")
+                let imageElement = document.getElementById("modal-image")
+
+                modal.style.backgroundColor = mouseConstraint.body.render.fillStyle
+                titleElement.innerText = mouseConstraint.body.title;
+                imageElement.src = mouseConstraint.body.image;
+
+                setTimeout(() => {
+
+                    myModal.show()
+
+                }, 200)
+
+
+                World.remove(world, mouseConstraint.body);
 
 
             }
@@ -804,8 +818,3 @@ function countBalls() {
     }
     return numberOfBalls
 }
-
-
-
-
-
