@@ -87,3 +87,17 @@ canvas{
     font-size: 10em;
   }
 }
+
+
+
+.modal.fade .modal-dialog {
+  transform: translate3D(0, 100vh, 0);
+}
+
+.modal.in .modal-dialog {
+  transform: translate3D(0, 0, 0);
+}
+
+.modal.show .modal-dialog {
+  transform: translate3D(0, 0, 0);
+}

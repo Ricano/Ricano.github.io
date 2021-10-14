@@ -610,8 +610,8 @@ function setup() {
                 for (let i = 0; i < 3; i++) {
 
                     var redBall = new Circle(-dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
-
                         label: "redBall",
+                        slope:0,
                         restitution: 0.6,
                         frictionStatic: 0.001,
                         frictionAir: 0.001,
@@ -631,6 +631,7 @@ function setup() {
 
                     var blueBall = new Circle(windowWidth + dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
                         label: "blueBall",
+                        slope:0,
                         restitution: 0.6,
                         frictionStatic: 0.001,
                         frictionAir: 0.001,
@@ -686,7 +687,9 @@ function setup() {
 
             }
             if (mouseConstraint.body.label === "superBall") {
-
+               dispatchEvent(new MouseEvent('mouseup'))
+               // World.remove(world, mouseConstraint.body);
+                
                 myModal.show()
 
 
@@ -801,3 +804,8 @@ function countBalls() {
     }
     return numberOfBalls
 }
+
+
+
+
+
