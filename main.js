@@ -44,7 +44,7 @@ function setup() {
     noCanvas()
 
 
-    createElementsInWorld()
+    createWorldElements()
    
 
 
@@ -172,7 +172,9 @@ function countBalls() {
 function loadSkills() {
     for (let i = 0; i < 3; i++) {
 
-        var redBall = new Circle(-dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
+        var redBall = new Circle(-dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, 
+            dimensions.BALL.RADIUS* (Math.random() * 0.5 + 0.5),
+             {
             label: "redBall",
             slope: 0,
             restitution: 0.6,
@@ -192,7 +194,9 @@ function loadSkills() {
     }
     for (let i = 0; i < 3; i++) {
 
-        var blueBall = new Circle(WINDOW_WIDTH + dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, {
+        var blueBall = new Circle(WINDOW_WIDTH + dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS,
+            dimensions.BALL.RADIUS,
+            dimensions.BALL.RADIUS *(Math.random() * 0.5 + 0.5), {
             label: "blueBall",
             slope: 0,
             restitution: 0.6,
@@ -291,7 +295,6 @@ function loadModal(clickedBody) {
 }
 
 
-
 function createMouseConstraintAndAddToWorld() {
 
     mouse = Mouse.create(render.canvas),
@@ -343,14 +346,13 @@ function createAndUseMatterRender() {
             //  showVelocity: true,
             // showCollisions: true,
             hasBounds: true,
-            wireframes: true,
-            background: 'transparent'
+            wireframes: false
         }
     });
 
 }
 
-function createElementsInWorld(){
+function createWorldElements(){
 
     walls = new Walls(dimensions.WALL.SIZE)
     
@@ -365,20 +367,15 @@ function createElementsInWorld(){
         isStatic: true,
         label: "loadButton",
         render: {
-            sprite: {
-                texture: "./redButton.png"
-            }
+            fillStyle: COLORS.GREEN
         }
     })
-    
+ 
+
     transformButton = new Circle(cup.bottomBody.position.x, cup.bottomBody.position.y + dimensions.BALL.RADIUS * 2, dimensions.BALL.RADIUS * 2, {
         isStatic: true,
         label: "transformButton",
-        render: {
-            sprite: {
-                texture: "./redButton.png"
-            }
-        }
+     
     })
     transformButton['isActive'] = false;
 }
