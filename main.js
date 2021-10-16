@@ -436,8 +436,7 @@ const XL_DIM = {
     }
 }
 
-function preload() {
-}
+function preload() {}
 
 
 
@@ -593,9 +592,8 @@ function setup() {
 
     Events.on(mouseConstraint, "mousedown", () => {
         if (mouseConstraint.body) {
-
-            if (mouseConstraint.body.label === "loadButton") {
-                myModal.show()
+            let clickedBody = mouseConstraint.body;
+            if (clickedBody.label === "loadButton") {
 
                 for (let i = 0; i < 3; i++) {
 
@@ -639,7 +637,7 @@ function setup() {
 
 
             }
-            if (mouseConstraint.body.label === "transformButton" && transformButton.isActive) {
+            if (clickedBody.label === "transformButton" && transformButton.isActive) {
 
 
                 setTimeout(() => {
@@ -670,13 +668,17 @@ function setup() {
                         newB.body.title = MODAL_INFO.project1.title
                         newB.body['image'] = MODAL_INFO.project1.image
                         newB.body['link'] = MODAL_INFO.project1.link
-                        newB.body.render.fillStyle= MODAL_INFO.project1.color
+                        newB.body['description'] = MODAL_INFO.project1.description
+                        newB.body['logos'] = MODAL_INFO.project1.logos
+                        newB.body.render.fillStyle = MODAL_INFO.project1.color
 
                     } else {
                         newB.body['title'] = MODAL_INFO.project2.title
                         newB.body['image'] = MODAL_INFO.project2.image
                         newB.body['link'] = MODAL_INFO.project2.link
-                        newB.body.render.fillStyle= MODAL_INFO.project2.color
+                        newB.body['description'] = MODAL_INFO.project2.description
+                        newB.body['logos'] = MODAL_INFO.project2.logos
+                        newB.body.render.fillStyle = MODAL_INFO.project2.color
 
 
                     }
@@ -686,27 +688,37 @@ function setup() {
 
 
             }
-            if (mouseConstraint.body.label === "superBall") {
-
+            if (clickedBody.label === "superBall") {
+                
+/*
                 let modal = document.getElementById("modal-content")
-
+                let header = document.getElementsByClassName('modal-header')[0];
                 let titleElement = document.getElementById("modal-title")
                 let imageElement = document.getElementById("modal-image")
+                let descriptionElement = document.getElementById("modal-description")
+                let linkElement = document.getElementById("github-icon")
+                let iconsElement = document.getElementById("modal-icons")
 
-                modal.style.backgroundColor = mouseConstraint.body.render.fillStyle
-                titleElement.innerText = mouseConstraint.body.title;
-                imageElement.src = mouseConstraint.body.image;
+                titleElement.innerText = clickedBody.title;
+                titleElement.style.backgroundColor = clickedBody.render.fillStyle;
+                imageElement.src = clickedBody.image;
+                descriptionElement.innerHTML = clickedBody.description;
+                linkElement.href = clickedBody.link
+                iconsElement.style.backgroundColor = clickedBody.render.fillStyle
+                iconsElement.innerHTML="";
+                clickedBody.logos.forEach(logo => {
+                    iconsElement.innerHTML+= `<img class="modal-icon" src="${logo}"></img>`
+                });
 
-                setTimeout(() => {
+                    setTimeout(() => {
 
-                    myModal.show()
+                        myModal.show()
 
-                }, 200)
+                    }, 200)
 
 
                 World.remove(world, mouseConstraint.body);
-
-
+*/
             }
         }
     })
@@ -743,12 +755,14 @@ function setup() {
 }
 let titleString = document.getElementsByClassName('name')[0]
 
+let gitHubIcon = document.getElementById("github-icon");
+
 function draw() {
 
     let textShadow =
-        "5px 3px rgb(" + (floor(Math.random() * 255)).toString() + "," +
-        (floor(Math.random() * 255)).toString() + "," +
-        (floor(Math.random() * 255)).toString() + ")"
+        "5px 3px rgb(" + (floor(Math.random() * 25)).toString() + "," +
+        (floor(Math.random() * 205)).toString() + "," +
+        (floor(Math.random() * 205) + 50).toString() + ")"
 
     if (Math.random() < 0.1)
         titleString.style.textShadow = textShadow
