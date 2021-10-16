@@ -182,20 +182,20 @@ class Walls {
         this.bodies = []
 
 this.thickness=thickness;
-        this.roof = Matter.Bodies.rectangle(windowWidth / 2, 0, windowWidth, thickness, options)
-        this.floor = Matter.Bodies.rectangle(windowWidth / 2 - 6 * thickness, windowHeight, windowWidth, thickness, options)
-        this.leftWall = Matter.Bodies.rectangle(0, windowHeight / 2 + 5 * thickness, thickness, windowHeight, options)
-        this.rightWall = Matter.Bodies.rectangle(windowWidth, windowHeight / 2 + 5 * thickness, thickness, windowHeight, options)
+        this.roof = Matter.Bodies.rectangle(WINDOW_WIDTH / 2, 0, WINDOW_WIDTH, thickness, options)
+        this.floor = Matter.Bodies.rectangle(WINDOW_WIDTH / 2 - 6 * thickness, WINDOW_HEIGHT, WINDOW_WIDTH, thickness, options)
+        this.leftWall = Matter.Bodies.rectangle(0, WINDOW_HEIGHT / 2 + 5 * thickness, thickness, WINDOW_HEIGHT, options)
+        this.rightWall = Matter.Bodies.rectangle(WINDOW_WIDTH, WINDOW_HEIGHT / 2 + 5 * thickness, thickness, WINDOW_HEIGHT, options)
         this.roof.isStatic = true;
         this.floor.isStatic = true;
         this.leftWall.isStatic = true;
         this.rightWall.isStatic = true;
-        this.leftPlatform = Matter.Bodies.rectangle(0, this.leftWall.bounds.min.y, windowWidth*4/5, thickness/2, {angle:0.1, render: {
+        this.leftPlatform = Matter.Bodies.rectangle(0, this.leftWall.bounds.min.y, WINDOW_WIDTH*4/5, thickness/2, {angle:0.1, render: {
             fillStyle: "#F0F0F0"
         }})
         this.leftPlatform.isStatic = true;
        
-       this.rightPlatform = Matter.Bodies.rectangle(windowWidth, this.rightWall.bounds.min.y, windowWidth*4/5, thickness/2, {angle:-0.1, render: {
+       this.rightPlatform = Matter.Bodies.rectangle(WINDOW_WIDTH, this.rightWall.bounds.min.y, WINDOW_WIDTH*4/5, thickness/2, {angle:-0.1, render: {
             fillStyle: "#F0F0F0"
         }})
         this.rightPlatform.isStatic = true;

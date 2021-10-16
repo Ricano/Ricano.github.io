@@ -1,3 +1,131 @@
+const WINDOW_WIDTH = window.innerWidth;
+const WINDOW_HEIGHT = window.innerHeight;
+const XS_DIM = {
+    BALL: {
+        RADIUS: 16,
+    },
+    WALL: {
+        SIZE: 16
+    },
+    CUP: {
+        'X': WINDOW_WIDTH * 0.5,
+        'Y': WINDOW_HEIGHT * 0.45,
+        'SIZE': 80
+    },
+    LEFT_PLAT: {
+        'SIZE': 100,
+        'X': 0,
+        'Y': 100,
+        'ANGLE': 0.1
+    },
+    RIGHT_PLAT: {
+        'SIZE': 100,
+        'X': WINDOW_WIDTH,
+        'Y': WINDOW_HEIGHT * 0.2,
+        'ANGLE': 0.1
+    }
+}
+const S_DIM = {
+    BALL: {
+        RADIUS: 20,
+    },
+    WALL: {
+        SIZE: 20
+    },
+    CUP: {
+        'X': WINDOW_WIDTH * 0.5,
+        'Y': WINDOW_HEIGHT * 0.45,
+        'SIZE': 100
+    },
+    LEFT_PLAT: {
+        'X': 0,
+        'Y': 150,
+        'SIZE': 350,
+        'ANGLE': 0.1
+    },
+    RIGHT_PLAT: {
+        'SIZE': 350,
+        'X': WINDOW_WIDTH,
+        'Y': WINDOW_HEIGHT * 0.15,
+        'ANGLE': -0.1
+    }
+}
+const M_DIM = {
+    BALL: {
+        RADIUS: 24,
+    },
+    WALL: {
+        SIZE: 24
+    },
+    CUP: {
+        'X': WINDOW_WIDTH * 0.5,
+        'Y': WINDOW_HEIGHT * 0.45,
+        'SIZE': 120
+    },
+    LEFT_PLAT: {
+        'X': 0,
+        'Y': 200,
+        'SIZE': 500,
+        'ANGLE': 0.1
+    },
+    RIGHT_PLAT: {
+        'SIZE': 500,
+        'X': WINDOW_WIDTH,
+        'Y': WINDOW_HEIGHT * 0.15,
+        'ANGLE': -0.1
+    }
+}
+const L_DIM = {
+    BALL: {
+        RADIUS: 28,
+    },
+    WALL: {
+        SIZE: 28
+    },
+    CUP: {
+        'X': WINDOW_WIDTH * 0.5,
+        'Y': WINDOW_HEIGHT * 0.45,
+        'SIZE': 140
+    },
+    LEFT_PLAT: {
+        'X': WINDOW_WIDTH / 5,
+        'Y': 225,
+        'SIZE': 100,
+        'ANGLE': 0.05
+    },
+    RIGHT_PLAT: {
+        'X': WINDOW_WIDTH - WINDOW_WIDTH / 5,
+        'Y': 225,
+        'SIZE': 1000,
+        'ANGLE': -0.05
+    }
+}
+const XL_DIM = {
+    BALL: {
+        RADIUS: 32,
+    },
+    WALL: {
+        SIZE: 32
+    },
+    CUP: {
+        'X': WINDOW_WIDTH * 0.5,
+        'Y': WINDOW_HEIGHT * 0.45,
+        'SIZE': 160
+    },
+    LEFT_PLAT: {
+        'X': 0,
+        'Y': 300,
+        'SIZE': WINDOW_WIDTH * 4 / 5,
+        'ANGLE': 0.05
+    },
+    RIGHT_PLAT: {
+        'X': WINDOW_WIDTH,
+        'Y': 300,
+        'SIZE': WINDOW_WIDTH * 4 / 5,
+        'ANGLE': -0.05
+    }
+}
+
 const COLORS = {
     "GREEN": "#38A544",
     "YELLOW": "#E8D957",
