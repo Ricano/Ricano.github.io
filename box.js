@@ -184,8 +184,8 @@ class Walls {
 this.thickness=thickness;
         this.roof = Matter.Bodies.rectangle(windowWidth / 2, 0, windowWidth, thickness, options)
         this.floor = Matter.Bodies.rectangle(windowWidth / 2 - 6 * thickness, windowHeight, windowWidth, thickness, options)
-        this.leftWall = Matter.Bodies.rectangle(0, windowHeight / 2 + 4 * thickness, thickness, windowHeight, options)
-        this.rightWall = Matter.Bodies.rectangle(windowWidth, windowHeight / 2 + 4 * thickness, thickness, windowHeight, options)
+        this.leftWall = Matter.Bodies.rectangle(0, windowHeight / 2 + 5 * thickness, thickness, windowHeight, options)
+        this.rightWall = Matter.Bodies.rectangle(windowWidth, windowHeight / 2 + 5 * thickness, thickness, windowHeight, options)
         this.roof.isStatic = true;
         this.floor.isStatic = true;
         this.leftWall.isStatic = true;
