@@ -73,8 +73,8 @@ class Circle {
         this.body = Matter.Bodies.circle(x, y, r, o);
         Matter.World.add(world, this.body);
         this.r = r;
-        this.inMachine=false;
-        
+        this.inMachine = false;
+
     }
 
 
@@ -103,28 +103,39 @@ class Machine {
         this.size = size;
 
         this.leftBody = Matter.Bodies.rectangle(x - size * 0.9, y, size * 1.5, size / 6, {
+            w: size * 1.5,
+            h: size / 6,
             isStatic: true,
-            angle: 1, render:{
-                visible:true,
+            angle: 1,
+            render: {
+                visible: true,
                 //opacity:0.18,
-                fillStyle:"#FFF"}
+                fillStyle: "#FFF"
+            }
 
         })
         this.rightBody = Matter.Bodies.rectangle(x + size * 0.9, y, size * 1.5, size / 6, {
+            w: size * 1.5,
+            h: size / 6,
             isStatic: true,
-            angle: -1, render:{
-                visible:true,
+            angle: -1,
+            render: {
+                visible: true,
                 //opacity:0.18,
-                fillStyle:"#FFF"}
+                fillStyle: "#FFF"
+            }
 
         })
 
-        this.bottomBody = Matter.Bodies.rectangle(x, y +size*0.7, size, size / 3, {
+        this.bottomBody = Matter.Bodies.rectangle(x, y + size * 0.7, size, size / 3, {
+            w: size,
+            h: size / 3,
             isStatic: true,
-            render:{
-                visible:true,
+            render: {
+                visible: true,
                 //opacity:0.18,
-                fillStyle:"#FFF"}
+                fillStyle: "#FFF"
+            }
         })
 
 
@@ -138,32 +149,29 @@ class Machine {
 
         Matter.World.add(engine.world, this.machine);
 
-
+        this.position = {
+            "x": x,
+            "y": y
+        }
     }
-    //     show() {
 
-    //         // for (const body of this.newtonsCradle.bodies) {
-    //         //     const pos = body.position;
-    //         //     const angle = body.angle;
-    //         //     push();
-    //         //     translate(pos.x, pos.y);
-    //         //     rotate(angle);
-    //         //     noStroke();
-    //         //     image(img, -this.size,0, this.size*2, this.size*2);
-    //         //     //fill(255, 0, 0);
-    //         //     //ellipse(0, 0, this.size * 2);
-    //         //     pop();
-    //         // }
-    //         // for (const constraint of this.newtonsCradle.constraints) {
-    //         //     const pos = constraint.bodyB.position;
-    //         //     const angle = constraint.bodyB.angle;
-    //         //     push();
-    //         //     rotate(angle);
-    //         //     stroke(255,0,0)
-    //         //     line(constraint.pointA.x,constraint.pointA.y, pos.x,pos.y);
-    //         //     pop();
-    //         // }
-    //     }
+
+    show() {
+
+        for (const body of this.machine.bodies) {
+            const pos = body.position;
+            const angle = body.angle;
+            push();
+            translate(pos.x, pos.y);
+            rotate(angle);
+            noStroke();
+            //image(img, -this.size,0, this.size*2, this.size*2);
+            fill(255, 0, 0);
+            rectMode(CENTER)
+            rect(0, 0, body.w, body.h);
+            pop();
+        }
+    }
 
 
 
@@ -173,36 +181,58 @@ class Machine {
 }
 
 class Walls {
-    constructor(thickness, options = {
-        render: {
-            fillStyle: "#F0F0F0"
-        }
-    }) {
+    constructor(thickness, options) {
 
         this.bodies = []
 
-this.thickness=thickness;
-        this.roof = Matter.Bodies.rectangle(WINDOW_WIDTH / 2, 0, WINDOW_WIDTH, thickness, options)
-        this.floor = Matter.Bodies.rectangle(WINDOW_WIDTH / 2 - 6 * thickness, WINDOW_HEIGHT, WINDOW_WIDTH, thickness, options)
-        this.leftWall = Matter.Bodies.rectangle(0, WINDOW_HEIGHT / 2 + 5 * thickness, thickness, WINDOW_HEIGHT, options)
-        this.rightWall = Matter.Bodies.rectangle(WINDOW_WIDTH, WINDOW_HEIGHT / 2 + 5 * thickness, thickness, WINDOW_HEIGHT, options)
+        this.thickness = thickness;
+        this.roof = Matter.Bodies.rectangle(WINDOW_WIDTH / 2, 0, WINDOW_WIDTH, thickness, {w:WINDOW_WIDTH, h:thickness})
+        this.floor = Matter.Bodies.rectangle(WINDOW_WIDTH / 2 - 6 * thickness, WINDOW_HEIGHT, WINDOW_WIDTH, thickness, {w:WINDOW_WIDTH, h:thickness})
+        this.leftWall = Matter.Bodies.rectangle(0, WINDOW_HEIGHT / 2 + 5 * thickness, thickness, WINDOW_HEIGHT, {w:thickness, h:WINDOW_HEIGHT})
+        this.rightWall = Matter.Bodies.rectangle(WINDOW_WIDTH, WINDOW_HEIGHT / 2 + 5 * thickness, thickness, WINDOW_HEIGHT, {w:thickness, h:WINDOW_HEIGHT})
         this.roof.isStatic = true;
         this.floor.isStatic = true;
         this.leftWall.isStatic = true;
         this.rightWall.isStatic = true;
-        this.leftPlatform = Matter.Bodies.rectangle(0, this.leftWall.bounds.min.y, WINDOW_WIDTH*4/5, thickness/2, {angle:0.1, render: {
-            fillStyle: "#F0F0F0"
-        }})
+        this.leftPlatform = Matter.Bodies.rectangle(0, this.leftWall.bounds.min.y, WINDOW_WIDTH * 4 / 5, thickness / 2, {
+            angle: 0.1,
+            w:WINDOW_WIDTH * 4 / 5,
+            h:thickness/2,
+            render: {
+                fillStyle: "#F0F0F0"
+            }
+        })
         this.leftPlatform.isStatic = true;
-       
-       this.rightPlatform = Matter.Bodies.rectangle(WINDOW_WIDTH, this.rightWall.bounds.min.y, WINDOW_WIDTH*4/5, thickness/2, {angle:-0.1, render: {
-            fillStyle: "#F0F0F0"
-        }})
+
+        this.rightPlatform = Matter.Bodies.rectangle(WINDOW_WIDTH, this.rightWall.bounds.min.y, WINDOW_WIDTH * 4 / 5, thickness / 2, {
+            angle: -0.1,
+            w:WINDOW_WIDTH * 4 / 5,
+            h:thickness/2,
+            render: {
+                fillStyle: "#F0F0F0"
+            }
+        })
         this.rightPlatform.isStatic = true;
 
-        
+
         this.bodies.push(this.roof, this.floor, this.leftWall, this.rightWall, this.leftPlatform, this.rightPlatform)
 
         Matter.World.add(engine.world, this.bodies);
+    }
+    show() {
+
+        for (const body of this.bodies) {
+            const pos = body.position;
+            const angle = body.angle;
+            push();
+            translate(pos.x, pos.y);
+            rotate(angle);
+            noStroke();
+            //image(img, -this.size,0, this.size*2, this.size*2);
+            fill(255, 0, 0);
+            rectMode(CENTER)
+            rect(0, 0, body.w, body.h);
+            pop();
+        }
     }
 }

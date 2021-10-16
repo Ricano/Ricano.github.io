@@ -7,7 +7,7 @@ let Composite = Matter.Composite;
 let Composites = Matter.Composites;
 let Engine = Matter.Engine;
 let Events = Matter.Events;
-let Render = Matter.Render;
+//let Render = Matter.Render;
 let Query = Matter.Query;
 let Bounds = Matter.Bounds;
 let Vector = Matter.Vector;
@@ -40,8 +40,8 @@ function setup() {
     world = engine.world
 
     //Setup canvas
-    //   myCanvas = createCanvas(WINDOW_WIDTH - margin, WINDOW_HEIGHT - margin);
-    noCanvas()
+ myCanvas = createCanvas(WINDOW_WIDTH, WINDOW_HEIGHT);
+    //noCanvas()
 
 
     createWorldElements()
@@ -49,7 +49,7 @@ function setup() {
 
 
     // Create and use the Matter js render
-    createAndUseMatterRender()
+  //  createAndUseMatterRender()
 
     // Allow mouse interaction by creating the 
     // mouse constraint and adding it to the world
@@ -63,7 +63,7 @@ function setup() {
     })
 
     // keep the mouse in sync with rendering
-    render.mouse = mouse;
+  //  render.mouse = mouse;
 
     Events.on(mouseConstraint, "mousedown", () => {
         if (mouseConstraint.body) {
@@ -89,7 +89,7 @@ function setup() {
     })
 
     // run the renderer
-    Render.run(render);
+  //  Render.run(render);
 
     // Matter.Engine.run(engine)
 
@@ -115,22 +115,15 @@ function draw() {
 
     numberBallsInsideMachine = countBalls()
     transformButton.isActive = (numberBallsInsideMachine > 2)
-    transformButton.body.render.fillStyle = transformButton.isActive ? COLORS.GREEN : COLORS.YELLOW
 
 
 
-    // background(20,20,20);
-    // balls.forEach(element => {
-    //     element.show()
-    // });
-    // // console.log(newt.newtonsCradle.bodies[0].position)
-    // // A rectangle
-    // fill(200, 200, 200);
-    // noStroke();
-    // rectMode(CENTER)
-    // rect(200, h / 2, rectW, rectH);
-    // // uses global variables for width and height
-    // circle2.show()
+     background(20,20,20);
+     loadButton.show()
+     transformButton.show()
+     cup.show()
+     walls.show()
+     console.log(balls)
 
     // newt.show()
 }
@@ -297,7 +290,8 @@ function loadModal(clickedBody) {
 
 function createMouseConstraintAndAddToWorld() {
 
-    mouse = Mouse.create(render.canvas),
+    //mouse = Mouse.create(render.canvas),
+    mouse = Mouse.create(myCanvas.canvas),
         mouseConstraint = MouseConstraint.create(engine, {
             mouse: mouse,
             constraint: {
@@ -330,13 +324,13 @@ function assignBodysDimensionsBasedOnScreenSize() {
 
 
 }
-
+/*
 function createAndUseMatterRender() {
 
     render = Render.create({
         element: document.body,
-        // canvas:myCanvas.canvas,
-        // context:myCanvas.drawingContext,
+         canvas:myCanvas.canvas,
+         context:myCanvas.drawingContext,
         engine: engine,
         options: {
             showPerformance: true,
@@ -346,12 +340,12 @@ function createAndUseMatterRender() {
             //  showVelocity: true,
             // showCollisions: true,
             hasBounds: true,
-            wireframes: false
+            wireframes: true
         }
     });
 
 }
-
+*/
 function createWorldElements(){
 
     walls = new Walls(dimensions.WALL.SIZE)
