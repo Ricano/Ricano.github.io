@@ -106,16 +106,18 @@ class Machine {
             isStatic: true,
             angle: 1, render:{
                 visible:true,
-                //opacity:0.18,
-                fillStyle:"#FFF"}
+                 //opacity:0.18,
+                 sprite:{texture:"./assets/log2.png"}
+                }
 
         })
         this.rightBody = Matter.Bodies.rectangle(x + size * 0.9, y, size * 1.5, size / 6, {
             isStatic: true,
             angle: -1, render:{
                 visible:true,
-                //opacity:0.18,
-                fillStyle:"#FFF"}
+                 //opacity:0.18,
+                 sprite:{texture:"./assets/log1.png"}
+                }
 
         })
 
@@ -124,7 +126,8 @@ class Machine {
             render:{
                 visible:true,
                 //opacity:0.18,
-                fillStyle:"#FFF"}
+               // sprite:{texture:"./assets/cup1.png"}
+                }
         })
 
 

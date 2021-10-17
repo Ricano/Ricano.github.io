@@ -359,7 +359,7 @@ function createWorldElements(){
     cup = new Machine(dimensions.CUP.X, dimensions.CUP.Y, dimensions.CUP.SIZE, {
         isStatic: true,
         render: {
-            visible: true
+            visible: true,
         }
     })
     
