@@ -359,7 +359,7 @@ function createWorldElements(){
     cup = new Machine(dimensions.CUP.X, dimensions.CUP.Y, dimensions.CUP.SIZE, {
         isStatic: true,
         render: {
-            fillStyle: "#00FF00"
+            visible: true
         }
     })
     
@@ -375,6 +375,15 @@ function createWorldElements(){
     transformButton = new Circle(cup.bottomBody.position.x, cup.bottomBody.position.y + dimensions.BALL.RADIUS * 2, dimensions.BALL.RADIUS * 2, {
         isStatic: true,
         label: "transformButton",
+        render: {
+            fillStyle: COLORS.GREEN
+        }
+        /*
+        render: {
+            sprite:{texture:"./cup1.png",
+        yOffset:0.225}
+        }
+*/
      
     })
     transformButton['isActive'] = false;
