@@ -10,7 +10,9 @@ const XS_DIM = {
     CUP: {
         'X': WINDOW_WIDTH * 0.5,
         'Y': WINDOW_HEIGHT * 0.45,
-        'SIZE': 80
+        'SIZE':68,
+        'SCALE': 0.42
+
     },
     LEFT_PLAT: {
         'SIZE': 100,
@@ -34,8 +36,10 @@ const S_DIM = {
     },
     CUP: {
         'X': WINDOW_WIDTH * 0.5,
-        'Y': WINDOW_HEIGHT * 0.45,
-        'SIZE': 100
+        'Y': WINDOW_HEIGHT * 0.35,
+        'SIZE': 100,
+        'SCALE': 0.5
+
     },
     LEFT_PLAT: {
         'X': 0,
@@ -60,7 +64,8 @@ const M_DIM = {
     CUP: {
         'X': WINDOW_WIDTH * 0.5,
         'Y': WINDOW_HEIGHT * 0.45,
-        'SIZE': 120
+        'SIZE': 140,
+        'SCALE': 0.75
     },
     LEFT_PLAT: {
         'X': 0,
@@ -85,7 +90,9 @@ const L_DIM = {
     CUP: {
         'X': WINDOW_WIDTH * 0.5,
         'Y': WINDOW_HEIGHT * 0.45,
-        'SIZE': 140
+        'SIZE': 168,
+        'SCALE': 0.88
+
     },
     LEFT_PLAT: {
         'X': WINDOW_WIDTH / 5,
@@ -110,7 +117,8 @@ const XL_DIM = {
     CUP: {
         'X': WINDOW_WIDTH * 0.5,
         'Y': WINDOW_HEIGHT * 0.45,
-        'SIZE': 160
+        'SIZE': 220,
+        'SCALE': 1.15
     },
     LEFT_PLAT: {
         'X': 0,

@@ -15,7 +15,8 @@ let Mouse = Matter.Mouse;
 let MouseConstraint = Matter.MouseConstraint;
 
 // Initialize necessary global variables
-
+let cupClicked = false;
+let loadClicked = false;
 let walls,
     dimensions,
     cup,
@@ -26,9 +27,16 @@ let walls,
 let balls = []
 let superBalls = []
 
-
+let redOnImage, redOffImage, redClickedImage, greenOnImage, greenClickedImage
 // P5 preload function
-function preload() {}
+function preload() {
+
+    redOnImage = "./assets/buttonOn.png"
+    redOffImage = "./assets/buttonOff.png"
+    redClickedImage = "./assets/buttonClicked.png"
+    greenOnImage = "./assets/greenButton.png"
+    greenClickedImage = "./assets/greenButton2.png"
+}
 
 assignBodysDimensionsBasedOnScreenSize()
 
@@ -45,7 +53,7 @@ function setup() {
 
 
     createWorldElements()
-   
+
 
 
     // Create and use the Matter js render
@@ -71,12 +79,32 @@ function setup() {
 
             switch (clickedBody.label) {
                 case "loadButton": {
-                    loadSkills();
+                    if (!loadClicked) {
+                        loadClicked = true;
+                    }
+                    loadButton.body.render.sprite.texture = greenClickedImage
+                    setTimeout(() => {
+
+
+                        loadSkills();
+                        loadClicked = false
+                    }, 250)
                     break;
                 }
                 case "transformButton": {
                     if (transformButton.isActive) {
-                        createProject();
+                        if (!cupClicked)
+                            cupClicked = true;
+                        cup.bottomBody.render.sprite.texture = redClickedImage
+                        setTimeout(() => {
+
+
+                            createProject();
+                            cupClicked = false
+                        }, 500)
+
+
+
                     }
                     break;
                 }
@@ -109,14 +137,18 @@ function draw() {
         (floor(Math.random() * 205)).toString() + "," +
         (floor(Math.random() * 205) + 50).toString() + ")"
 
-    if (Math.random() < 0.1)
+    /* if (Math.random() < 0.1)
         titleString.style.textShadow = textShadow
-
+*/
 
     numberBallsInsideMachine = countBalls()
     transformButton.isActive = (numberBallsInsideMachine > 2)
     transformButton.body.render.fillStyle = transformButton.isActive ? COLORS.GREEN : COLORS.YELLOW
+    if (!cupClicked)
+        cup.bottomBody.render.sprite.texture = transformButton.isActive ? redOnImage : redOffImage
 
+    if (!loadClicked)
+        loadButton.body.render.sprite.texture = greenOnImage
 
 
     // background(20,20,20);
@@ -172,23 +204,22 @@ function countBalls() {
 function loadSkills() {
     for (let i = 0; i < 3; i++) {
 
-        var redBall = new Circle(-dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS, 
-            dimensions.BALL.RADIUS* (Math.random() * 0.5 + 0.5),
-             {
-            label: "redBall",
-            slope: 0,
-            restitution: 0.6,
-            frictionStatic: 0.001,
-            frictionAir: 0.001,
-            friction: 0,
-            force: {
-                x: 0.01,
-                y: 0
-            },
-            render: {
-                fillStyle: COLORS.RED
-            },
-        })
+        var redBall = new Circle(-dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS,
+            dimensions.BALL.RADIUS * (Math.random() * 0.5 + 0.5), {
+                label: "redBall",
+                slope: 0,
+                restitution: 0.6,
+                frictionStatic: 0.001,
+                frictionAir: 0.001,
+                friction: 0,
+                force: {
+                    x: 0.01,
+                    y: 0
+                },
+                render: {
+                    fillStyle: COLORS.RED
+                },
+            })
         balls.push(redBall);
 
     }
@@ -196,21 +227,21 @@ function loadSkills() {
 
         var blueBall = new Circle(WINDOW_WIDTH + dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS,
             dimensions.BALL.RADIUS,
-            dimensions.BALL.RADIUS *(Math.random() * 0.5 + 0.5), {
-            label: "blueBall",
-            slope: 0,
-            restitution: 0.6,
-            frictionStatic: 0.001,
-            frictionAir: 0.001,
-            friction: 0,
-            force: {
-                x: -0.01,
-                y: 0
-            },
-            render: {
-                fillStyle: COLORS.BLUE
-            },
-        })
+            dimensions.BALL.RADIUS * (Math.random() * 0.5 + 0.5), {
+                label: "blueBall",
+                slope: 0,
+                restitution: 0.6,
+                frictionStatic: 0.001,
+                frictionAir: 0.001,
+                friction: 0,
+                force: {
+                    x: -0.01,
+                    y: 0
+                },
+                render: {
+                    fillStyle: COLORS.BLUE
+                },
+            })
         balls.push(blueBall);
     }
 }
@@ -346,45 +377,48 @@ function createAndUseMatterRender() {
             //  showVelocity: true,
             // showCollisions: true,
             hasBounds: true,
-            wireframes: false
+            wireframes: false,
+            background: "transparent"
         }
     });
 
 }
 
-function createWorldElements(){
+function createWorldElements() {
 
     walls = new Walls(dimensions.WALL.SIZE)
-    
-    cup = new Machine(dimensions.CUP.X, dimensions.CUP.Y, dimensions.CUP.SIZE, {
+
+    cup = new Machine(dimensions.CUP.X, dimensions.CUP.Y, dimensions.CUP.SIZE, dimensions.CUP.SCALE, {
         isStatic: true,
         render: {
             visible: true,
         }
     })
-    
+
     loadButton = new Box(WINDOW_WIDTH / 2, dimensions.BALL.RADIUS * 2, dimensions.BALL.RADIUS * 2 * 1.618, dimensions.BALL.RADIUS * 2, {
         isStatic: true,
         label: "loadButton",
         render: {
-            fillStyle: COLORS.GREEN
+            sprite: {
+                xScale: 0.5,
+                yScale: 0.5,
+                texture:{
+                    
+                }
+            }
+            //fillStyle: COLORS.GREEN
         }
     })
- 
+
 
     transformButton = new Circle(cup.bottomBody.position.x, cup.bottomBody.position.y + dimensions.BALL.RADIUS * 2, dimensions.BALL.RADIUS * 2, {
         isStatic: true,
         label: "transformButton",
+
         render: {
-            fillStyle: COLORS.GREEN
+            visible: false,
         }
-        /*
-        render: {
-            sprite:{texture:"./cup1.png",
-        yOffset:0.225}
-        }
-*/
-     
+
     })
     transformButton['isActive'] = false;
 }

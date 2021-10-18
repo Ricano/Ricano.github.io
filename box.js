@@ -73,8 +73,8 @@ class Circle {
         this.body = Matter.Bodies.circle(x, y, r, o);
         Matter.World.add(world, this.body);
         this.r = r;
-        this.inMachine=false;
-        
+        this.inMachine = false;
+
     }
 
 
@@ -95,39 +95,45 @@ class Circle {
 
 class Machine {
 
-    constructor(x, y, size, options) {
+    constructor(x, y, size, scale, options) {
         this.machine = Composite.create({
             label: 'machine'
         });
 
         this.size = size;
 
-        this.leftBody = Matter.Bodies.rectangle(x - size * 0.9, y, size * 1.5, size / 6, {
+        this.leftBody = Matter.Bodies.rectangle(x - size * 0.9, y, size, size / 4, {
             isStatic: true,
-            angle: 1, render:{
-                visible:true,
-                 //opacity:0.18,
-                 sprite:{texture:"./assets/log2.png"}
-                }
-
-        })
-        this.rightBody = Matter.Bodies.rectangle(x + size * 0.9, y, size * 1.5, size / 6, {
-            isStatic: true,
-            angle: -1, render:{
-                visible:true,
-                 //opacity:0.18,
-                 sprite:{texture:"./assets/log1.png"}
-                }
-
-        })
-
-        this.bottomBody = Matter.Bodies.rectangle(x, y +size*0.7, size, size / 3, {
-            isStatic: true,
-            render:{
-                visible:true,
+            angle: 1,
+            render: {
+                visible: false,
                 //opacity:0.18,
-               // sprite:{texture:"./assets/cup1.png"}
+                fillSTyle: "#0ff"
+            }
+
+        })
+        this.rightBody = Matter.Bodies.rectangle(x + size * 0.9, y, size, size / 4, {
+            isStatic: true,
+            angle: -1,
+            render: {
+                visible: false,
+                //opacity:0.18,
+                fillSTyle: "#0ff"
+            }
+
+        })
+
+        this.bottomBody = Matter.Bodies.rectangle(x, y + size * 0.7, size, size / 2, {
+            isStatic: true,
+            render: {
+                visible: true,
+                //opacity:0.18,
+                sprite: {
+                    yOffset: 0.111,
+                    xScale: scale,
+                    yScale: scale
                 }
+            }
         })
 
 
@@ -184,7 +190,7 @@ class Walls {
 
         this.bodies = []
 
-this.thickness=thickness;
+        this.thickness = thickness;
         this.roof = Matter.Bodies.rectangle(WINDOW_WIDTH / 2, 0, WINDOW_WIDTH, thickness, options)
         this.floor = Matter.Bodies.rectangle(WINDOW_WIDTH / 2 - 6 * thickness, WINDOW_HEIGHT, WINDOW_WIDTH, thickness, options)
         this.leftWall = Matter.Bodies.rectangle(0, WINDOW_HEIGHT / 2 + 5 * thickness, thickness, WINDOW_HEIGHT, options)
@@ -193,17 +199,23 @@ this.thickness=thickness;
         this.floor.isStatic = true;
         this.leftWall.isStatic = true;
         this.rightWall.isStatic = true;
-        this.leftPlatform = Matter.Bodies.rectangle(0, this.leftWall.bounds.min.y, WINDOW_WIDTH*4/5, thickness/2, {angle:0.1, render: {
-            fillStyle: "#F0F0F0"
-        }})
+        this.leftPlatform = Matter.Bodies.rectangle(0, this.leftWall.bounds.min.y, WINDOW_WIDTH * 4 / 5, thickness / 2, {
+            angle: 0.1,
+            render: {
+                fillStyle: "#F0F0F0"
+            }
+        })
         this.leftPlatform.isStatic = true;
-       
-       this.rightPlatform = Matter.Bodies.rectangle(WINDOW_WIDTH, this.rightWall.bounds.min.y, WINDOW_WIDTH*4/5, thickness/2, {angle:-0.1, render: {
-            fillStyle: "#F0F0F0"
-        }})
+
+        this.rightPlatform = Matter.Bodies.rectangle(WINDOW_WIDTH, this.rightWall.bounds.min.y, WINDOW_WIDTH * 4 / 5, thickness / 2, {
+            angle: -0.1,
+            render: {
+                fillStyle: "#F0F0F0"
+            }
+        })
         this.rightPlatform.isStatic = true;
 
-        
+
         this.bodies.push(this.roof, this.floor, this.leftWall, this.rightWall, this.leftPlatform, this.rightPlatform)
 
         Matter.World.add(engine.world, this.bodies);
