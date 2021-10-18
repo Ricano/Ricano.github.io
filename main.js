@@ -399,8 +399,8 @@ function createWorldElements() {
         label: "loadButton",
         render: {
             sprite: {
-                xScale: 0.5,
-                yScale: 0.5,
+                xScale: dimensions.BALL.RADIUS/60,
+                yScale: dimensions.BALL.RADIUS/60,
                 texture:{
                     
                 }
