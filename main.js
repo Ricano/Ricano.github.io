@@ -137,9 +137,8 @@ function draw() {
         (floor(Math.random() * 205)).toString() + "," +
         (floor(Math.random() * 205) + 50).toString() + ")"
 
-    /* if (Math.random() < 0.1)
+     if (Math.random() < 0.1)
         titleString.style.textShadow = textShadow
-*/
 
     numberBallsInsideMachine = countBalls()
     transformButton.isActive = (numberBallsInsideMachine > 2)

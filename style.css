@@ -6,7 +6,7 @@
 html,
 body {
   height: 100%;
-  background-color: green;
+  background-color: #f6fae9;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -16,7 +16,7 @@ body {
   position: absolute;
   font-family: stick;
   display: flex;
-  color: #010919;
+  color: #f6fae9;
   /*
  color: #00a;
   */
@@ -42,7 +42,7 @@ canvas{
 .title {
   position: absolute;
   font-family: stick;
-  color: #005588;
+  color: #f6fae9;
   text-shadow: 2px 2px #001166;
   z-index: 0;
 }
