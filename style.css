@@ -7,6 +7,9 @@ html,
 body {
   height: 100%;
   background-color: #f6fae9;
+  background-image: url("https://eskipaper.com/images/universe-background-1.jpg");
+  background-position: center;
+  background-size: cover;
   align-items: center;
   display: flex;
   justify-content: center;
@@ -22,9 +25,10 @@ body {
   */
   text-shadow: 2px 2px #ccc;
   bottom: 15vh;
+  z-index: 2;
 }
 canvas{
-  z-index: 0;
+  z-index: 3;
 }
 .ricardo,
 .caetano {
@@ -138,6 +142,7 @@ width: 32px;
   display: flex;
   justify-content: space-around;
   margin: 0;
+  padding: 5px;
 }
 #modal-icons{
   border-radius: 0 10px 10px 0; 
@@ -182,3 +187,163 @@ width: 32px;
 
 
 
+
+
+@import
+url('https://fonts.googleapis.com/css?family=Exo:400,700');
+
+
+
+.area{
+    background: #4e54c8;  
+    background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);  
+    width: 100%;
+    height:100vh;
+    
+   
+}
+
+.circles{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+}
+
+.circles li{
+    position: absolute;
+    display: block;
+    list-style: none;
+    width: 20px;
+    height: 20px;
+    animation: animateTokens 5s linear infinite;
+    bottom: -250px;
+    
+}
+
+.circles li:nth-child(1){
+    left: 25%;
+    width: 75px;
+    height: 45px;
+    animation-delay: 10s;
+    background-image: url("./assets/tie.png");
+    background-position: center;
+    background-size: cover;
+  }
+  
+  
+  .circles li:nth-child(2){
+    left: 10%;
+    width: 17px;
+    height: 68px;
+    animation-delay: 11s;
+    animation-duration: 2s;
+    background-image: url("./assets/hoverBoard.png");
+    background-position: center;
+    background-size: cover;
+  }
+
+.circles li:nth-child(3){
+    left: 70%;
+    width: 45px;
+    height: 45px;
+    animation-delay: 12s;
+    animation-duration: 2s;
+    background-image: url("./assets/trivialP.png");
+    background-position: center;
+    background-size: cover;
+}
+
+.circles li:nth-child(4){
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 3s;
+    animation-duration: 18s;
+    background-image: url("./assets/guitar.png");
+    background-position: center;
+    background-size: cover;
+}
+
+.circles li:nth-child(5){
+    left: 65%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 0s;
+    background-image: url("./assets/oneRing.png");
+    background-position: center;
+    background-size: cover;
+}
+
+.circles li:nth-child(6){
+    left: 75%;
+    width: 60px;
+    height: 60px;
+    animation-delay: 3s;
+    
+    background-image: url("./assets/beach.png");
+    background-position: center;
+    background-size: cover;
+}
+
+.circles li:nth-child(7){
+    left: 35%;
+    width: 80px;
+    height: 78px;
+    animation-delay: 7s;
+    background-image: url("./assets/babecue.png");
+    background-position: center;
+    background-size: cover;
+}
+
+.circles li:nth-child(8){
+    left: 50%;
+    width: 100px;
+    height: 50px;
+    animation-delay: 15s;
+    animation-duration: 45s;
+    background-image: url("./assets/tent.png");
+    background-position: center;
+    background-size: cover;
+}
+
+.circles li:nth-child(9){
+    left: 20%;
+    width: 100px;
+    height: 100px;
+    animation-delay: 20s;
+    animation-duration: 35s;
+    background-image: url("./assets/earth.png");
+    background-position: center;
+    background-size: cover;
+  }
+
+.circles li:nth-child(10){
+    left: 85%;
+    width: 100px;
+    height: 100px;
+    animation-delay: 10s;
+    animation-duration: 4s;
+    background-image: url("./assets/iss.svg");
+    background-position: center;
+    background-size: cover;
+}
+
+
+
+@keyframes animateTokens {
+
+    0%{
+        transform: translateY(0) rotate(0deg) scale(1);
+        opacity: 0.81;
+      }
+    100%{
+        transform: translateY(-2000px) rotate(380deg) scale(1);;
+        opacity: 0.1;
+         
+    }
+
+}

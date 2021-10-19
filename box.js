@@ -131,7 +131,8 @@ class Machine {
                 sprite: {
                     yOffset: 0.111,
                     xScale: scale,
-                    yScale: scale
+                    yScale: scale,
+                    texture:redOffImage
                 }
             }
         })
@@ -184,7 +185,7 @@ class Machine {
 class Walls {
     constructor(thickness, options = {
         render: {
-            fillStyle: "#F0F0F0"
+            fillStyle: "#000"
         }
     }) {
 
@@ -201,8 +202,11 @@ class Walls {
         this.rightWall.isStatic = true;
         this.leftPlatform = Matter.Bodies.rectangle(0, this.leftWall.bounds.min.y, WINDOW_WIDTH * 4 / 5, thickness / 2, {
             angle: 0.1,
+            friction:0.004,
             render: {
-                fillStyle: "#F0F0F0"
+                sprite:{
+                },
+                fillStyle: "#000"
             }
         })
         this.leftPlatform.isStatic = true;
@@ -210,7 +214,7 @@ class Walls {
         this.rightPlatform = Matter.Bodies.rectangle(WINDOW_WIDTH, this.rightWall.bounds.min.y, WINDOW_WIDTH * 4 / 5, thickness / 2, {
             angle: -0.1,
             render: {
-                fillStyle: "#F0F0F0"
+                fillStyle: "#000"
             }
         })
         this.rightPlatform.isStatic = true;

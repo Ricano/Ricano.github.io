@@ -1,3 +1,23 @@
+const SKILLS_TEXTURES =[
+    "./assets/skills/cs.png",
+    "./assets/skills/css.png",
+    "./assets/skills/html.png",
+    "./assets/skills/js.png",
+    "./assets/skills/laravel.png",
+    "./assets/skills/php.png",
+    "./assets/skills/python.png",
+    "./assets/skills/xd.png"
+]
+
+let redOnImage, redOffImage, redClickedImage, greenOnImage, greenClickedImage
+
+    redOnImage = "./assets/buttonOn.png"
+    redOffImage = "./assets/buttonOff.png"
+    redClickedImage = "./assets/buttonClicked.png"
+    greenOnImage = "./assets/greenButton.png"
+    greenClickedImage = "./assets/greenButton2.png"
+
+
 const WINDOW_WIDTH = window.innerWidth;
 const WINDOW_HEIGHT = window.innerHeight;
 const XS_DIM = {
@@ -165,10 +185,11 @@ const MODAL_INFO = {
     "project2": {
 
         "title": "IBIS - Gestão de atas",
+        "ball":"./assets/skills/ibis1.png",
         "image": "./assets/ibisimg.png",
         "link": "https://github.com/Ricano/ibis",
         "description": "A meetings manager and automatic minute creator app.",
-        "color": COLORS["LIGHT-BLUE"],
+        "color":COLORS["DARK-BLUE"],
         "logos": [
             "./assets/laravel.png",
             "./assets/xampp.png",

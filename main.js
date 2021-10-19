@@ -27,15 +27,9 @@ let walls,
 let balls = []
 let superBalls = []
 
-let redOnImage, redOffImage, redClickedImage, greenOnImage, greenClickedImage
 // P5 preload function
 function preload() {
-
-    redOnImage = "./assets/buttonOn.png"
-    redOffImage = "./assets/buttonOff.png"
-    redClickedImage = "./assets/buttonClicked.png"
-    greenOnImage = "./assets/greenButton.png"
-    greenClickedImage = "./assets/greenButton2.png"
+    
 }
 
 assignBodysDimensionsBasedOnScreenSize()
@@ -119,7 +113,7 @@ function setup() {
     // run the renderer
     Render.run(render);
 
-    // Matter.Engine.run(engine)
+     Matter.Engine.run(engine)
 
 }
 let titleString = document.getElementsByClassName('name')[0]
@@ -128,8 +122,7 @@ let gitHubIcon = document.getElementById("github-icon");
 
 function draw() {
 
-    // update the Matter Engine with every cycle of P5
-    Matter.Engine.update(engine, [delta = 16.666], [correction = 1])
+   
 
 
     let textShadow =
@@ -148,7 +141,8 @@ function draw() {
 
     if (!loadClicked)
         loadButton.body.render.sprite.texture = greenOnImage
-
+ // update the Matter Engine with every cycle of P5
+ //Matter.Engine.update(engine, [delta = 16.666], [correction = 1])
 
     // background(20,20,20);
     // balls.forEach(element => {
@@ -203,30 +197,44 @@ function countBalls() {
 function loadSkills() {
     for (let i = 0; i < 3; i++) {
 
+        let ballScale = Math.random() * 0.5 + 0.5 
+
+let randomTexture = floor(random() * SKILLS_TEXTURES.length)
+let texture =  SKILLS_TEXTURES[randomTexture]
+
+
         var redBall = new Circle(-dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS,
-            dimensions.BALL.RADIUS * (Math.random() * 0.5 + 0.5), {
+            dimensions.BALL.RADIUS* ballScale, {
                 label: "redBall",
                 slope: 0,
                 restitution: 0.6,
-                frictionStatic: 0.001,
-                frictionAir: 0.001,
-                friction: 0,
+                frictionStatic: 1,
+                frictionAir: 0,
+                friction: 0.004,
                 force: {
                     x: 0.01,
                     y: 0
                 },
                 render: {
-                    fillStyle: COLORS.RED
+                    sprite:{
+                        texture:texture,
+                        yScale:ballScale,
+                        xScale:ballScale,
+                    }
                 },
             })
         balls.push(redBall);
 
     }
     for (let i = 0; i < 3; i++) {
+        let ballScale = Math.random() * 0.5 + 0.5 
+
+        let randomTexture = floor(random() * SKILLS_TEXTURES.length)
+        let texture =  SKILLS_TEXTURES[randomTexture]
 
         var blueBall = new Circle(WINDOW_WIDTH + dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS,
             dimensions.BALL.RADIUS,
-            dimensions.BALL.RADIUS * (Math.random() * 0.5 + 0.5), {
+            dimensions.BALL.RADIUS* ballScale, {
                 label: "blueBall",
                 slope: 0,
                 restitution: 0.6,
@@ -238,8 +246,12 @@ function loadSkills() {
                     y: 0
                 },
                 render: {
-                    fillStyle: COLORS.BLUE
-                },
+                    sprite:{
+                        texture:texture,
+                        yScale:ballScale,
+                        xScale:ballScale,
+                    }
+                }   
             })
         balls.push(blueBall);
     }
@@ -254,7 +266,7 @@ function createProject() {
             restitution: 0.6,
             frictionStatic: 0.001,
             frictionAir: 0.001,
-            friction: 0,
+            friction: 0.01,
             force: {
                 x: 0,
                 y: 0
@@ -284,7 +296,7 @@ function createProject() {
             newB.body['link'] = MODAL_INFO.project2.link
             newB.body['description'] = MODAL_INFO.project2.description
             newB.body['logos'] = MODAL_INFO.project2.logos
-            newB.body.render.fillStyle = MODAL_INFO.project2.color
+            newB.body.render.sprite.texture = MODAL_INFO.project2.ball
 
 
         }
@@ -390,7 +402,8 @@ function createWorldElements() {
     cup = new Machine(dimensions.CUP.X, dimensions.CUP.Y, dimensions.CUP.SIZE, dimensions.CUP.SCALE, {
         isStatic: true,
         render: {
-            visible: true,
+            visible: false,
+           
         }
     })
 
@@ -401,14 +414,12 @@ function createWorldElements() {
             sprite: {
                 xScale: dimensions.BALL.RADIUS/60,
                 yScale: dimensions.BALL.RADIUS/60,
-                texture:{
-                    
-                }
+                texture: greenOnImage
+                
             }
             //fillStyle: COLORS.GREEN
         }
     })
-
 
     transformButton = new Circle(cup.bottomBody.position.x, cup.bottomBody.position.y + dimensions.BALL.RADIUS * 2, dimensions.BALL.RADIUS * 2, {
         isStatic: true,
