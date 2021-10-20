@@ -180,6 +180,8 @@ const MODAL_INFO = {
     "project1": {
 
         "title": "ISS Tracker",
+        "ball":"./assets/skills/issTrack1.png",
+
         "image": "./iss1.png",
         "link": "https://github.com/Ricano/iss_tracker",
         "description": "A simple <strong>REST API</strong> consuming app that let's you know, in real time, the International Space Station whereabouts.",

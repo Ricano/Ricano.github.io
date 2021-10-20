@@ -113,7 +113,7 @@ function setup() {
     // run the renderer
     Render.run(render);
 
-     Matter.Engine.run(engine)
+   //  Matter.Engine.run(engine)
 
 }
 let titleString = document.getElementsByClassName('name')[0]
@@ -142,7 +142,7 @@ function draw() {
     if (!loadClicked)
         loadButton.body.render.sprite.texture = greenOnImage
  // update the Matter Engine with every cycle of P5
- //Matter.Engine.update(engine, [delta = 16.666], [correction = 1])
+ Matter.Engine.update(engine, [delta = 16.666], [correction = 1])
 
     // background(20,20,20);
     // balls.forEach(element => {
@@ -212,7 +212,7 @@ let texture =  SKILLS_TEXTURES[randomTexture]
                 restitution: 0.6,
                 frictionStatic: 1,
                 frictionAir: 0,
-                friction: 0.007,
+                friction: 0,
                 force: {
                     x: dimensions.BALL.FORCE,
                     y: 0
@@ -242,7 +242,7 @@ let texture =  SKILLS_TEXTURES[randomTexture]
                 restitution: 0.7,
                 frictionStatic: 0.001,
                 frictionAir: 0.001,
-                friction: 0.007,
+                friction: 0.005,
                 force: {
                     x: -dimensions.BALL.FORCE,
                     y: 0
@@ -266,7 +266,7 @@ let dimensionScale = dimensions.BALL.RADIUS/32
 
         var newB = new Circle(WINDOW_WIDTH / 2, transformButton.body.position.y + dimensions.BALL.RADIUS * 4, dimensions.BALL.RADIUS * 2, {
             label: "superBall",
-            restitution: 0.7,
+            restitution: 0.8,
             frictionStatic: 0.001,
             frictionAir: 0.001,
             friction: 0.01,
@@ -276,7 +276,6 @@ let dimensionScale = dimensions.BALL.RADIUS/32
             },
             render:{
                 sprite:{
-
                     xScale:dimensionScale,
                     yScale:dimensionScale
                 }
@@ -298,7 +297,9 @@ let dimensionScale = dimensions.BALL.RADIUS/32
             newB.body['link'] = MODAL_INFO.project1.link
             newB.body['description'] = MODAL_INFO.project1.description
             newB.body['logos'] = MODAL_INFO.project1.logos
-            newB.body.render.fillStyle = MODAL_INFO.project1.color
+            newB.body.render.sprite.texture = MODAL_INFO.project1.ball
+
+//            newB.body.render.fillStyle = MODAL_INFO.project1.color
 
         } else {
             newB.body['title'] = MODAL_INFO.project2.title
