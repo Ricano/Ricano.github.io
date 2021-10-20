@@ -29,6 +29,11 @@ let superBalls = []
 
 let loadAnimation = true;
 
+
+//dom elements
+let loadArrow =  document.getElementById("load-arrow")
+let loadText = document.getElementById("load-skills")
+
 // P5 preload function
 function preload() {
 
@@ -140,10 +145,12 @@ function draw() {
     if (numberBallsInsideMachine > 2){
         transformButton.isActive = true;
         
-        document.getElementById("load-arrow").style.animationPlayState= "paused"
+        loadArrow.style.animationPlayState= "paused";
+        loadText.style.color= COLORS["LIGHT-BLUE"];
     } 
     else{
-        document.getElementById("load-arrow").style.animationPlayState= "running"
+        loadArrow.style.animationPlayState= "running"
+        loadText.style.color= COLORS["DARK-BLUE"];
         
         transformButton.isActive = false;
     }
@@ -185,6 +192,7 @@ function draw() {
             i--;
         }
     }
+    console.log(superBalls[0])
 
 }
 
@@ -294,7 +302,7 @@ function createProject() {
 
         var newB = new Circle(WINDOW_WIDTH / 2, transformButton.body.position.y + dimensions.BALL.RADIUS * 4, dimensions.BALL.RADIUS * 2, {
             label: "superBall",
-            restitution: 0.8,
+            restitution: 1,
             frictionStatic: 0.001,
             frictionAir: 0.001,
             friction: 0.01,

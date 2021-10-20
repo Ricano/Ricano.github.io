@@ -36,7 +36,7 @@ canvas{
 #load-skills{
   position: absolute;
   font-family: stick;
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   display: flex;
   color: #3891EE;
   /* 
@@ -47,7 +47,7 @@ canvas{
   z-index: 2;
 }
 #load-arrow{
-  font-size: 2.5rem;
+  font-size: 2rem;
   transform: translateY(-20px);
  animation: loadArrow 0.75s infinite alternate ease-out;
 
@@ -379,8 +379,13 @@ url('https://fonts.googleapis.com/css?family=Exo:400,700');
       margin: 0;
     }
     100%{
-      transform: translateY(-80px);;
+      transform: translateY(-60px);;
 padding: 10px;
     }
 
 }
+
+
+
+
+
