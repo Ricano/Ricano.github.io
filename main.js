@@ -195,9 +195,11 @@ function countBalls() {
 }
 
 function loadSkills() {
+    let dimensionScale = dimensions.BALL.RADIUS/32
     for (let i = 0; i < 3; i++) {
 
         let ballScale = Math.random() * 0.5 + 0.5 
+
 
 let randomTexture = floor(random() * SKILLS_TEXTURES.length)
 let texture =  SKILLS_TEXTURES[randomTexture]
@@ -210,16 +212,16 @@ let texture =  SKILLS_TEXTURES[randomTexture]
                 restitution: 0.6,
                 frictionStatic: 1,
                 frictionAir: 0,
-                friction: 0.004,
+                friction: 0.007,
                 force: {
-                    x: 0.01,
+                    x: dimensions.BALL.FORCE,
                     y: 0
                 },
                 render: {
                     sprite:{
                         texture:texture,
-                        yScale:ballScale,
-                        xScale:ballScale,
+                        yScale:dimensionScale*ballScale,
+                        xScale:dimensionScale*ballScale,
                     }
                 },
             })
@@ -237,19 +239,19 @@ let texture =  SKILLS_TEXTURES[randomTexture]
             dimensions.BALL.RADIUS* ballScale, {
                 label: "blueBall",
                 slope: 0,
-                restitution: 0.6,
+                restitution: 0.7,
                 frictionStatic: 0.001,
                 frictionAir: 0.001,
-                friction: 0,
+                friction: 0.007,
                 force: {
-                    x: -0.01,
+                    x: -dimensions.BALL.FORCE,
                     y: 0
                 },
                 render: {
                     sprite:{
                         texture:texture,
-                        yScale:ballScale,
-                        xScale:ballScale,
+                        yScale:dimensionScale*ballScale,
+                        xScale:dimensionScale*ballScale,
                     }
                 }   
             })
@@ -260,16 +262,24 @@ let texture =  SKILLS_TEXTURES[randomTexture]
 function createProject() {
     setTimeout(() => {
 
+let dimensionScale = dimensions.BALL.RADIUS/32
 
         var newB = new Circle(WINDOW_WIDTH / 2, transformButton.body.position.y + dimensions.BALL.RADIUS * 4, dimensions.BALL.RADIUS * 2, {
             label: "superBall",
-            restitution: 0.6,
+            restitution: 0.7,
             frictionStatic: 0.001,
             frictionAir: 0.001,
             friction: 0.01,
             force: {
                 x: 0,
                 y: 0
+            },
+            render:{
+                sprite:{
+
+                    xScale:dimensionScale,
+                    yScale:dimensionScale
+                }
             }
         })
         let removed = 0

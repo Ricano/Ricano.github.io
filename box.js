@@ -202,7 +202,7 @@ class Walls {
         this.rightWall.isStatic = true;
         this.leftPlatform = Matter.Bodies.rectangle(0, this.leftWall.bounds.min.y, WINDOW_WIDTH * 4 / 5, thickness / 2, {
             angle: 0.1,
-            friction:0.004,
+            friction:0.007,
             render: {
                 sprite:{
                 },
@@ -213,6 +213,8 @@ class Walls {
 
         this.rightPlatform = Matter.Bodies.rectangle(WINDOW_WIDTH, this.rightWall.bounds.min.y, WINDOW_WIDTH * 4 / 5, thickness / 2, {
             angle: -0.1,
+            friction:0.007,
+
             render: {
                 fillStyle: "#000"
             }

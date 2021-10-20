@@ -23,6 +23,8 @@ const WINDOW_HEIGHT = window.innerHeight;
 const XS_DIM = {
     BALL: {
         RADIUS: 16,
+        FORCE:0.003
+
     },
     WALL: {
         SIZE: 16
@@ -50,6 +52,7 @@ const XS_DIM = {
 const S_DIM = {
     BALL: {
         RADIUS: 20,
+        FORCE:0.006
     },
     WALL: {
         SIZE: 20
@@ -77,6 +80,8 @@ const S_DIM = {
 const M_DIM = {
     BALL: {
         RADIUS: 24,
+        FORCE:0.01
+
     },
     WALL: {
         SIZE: 24
@@ -103,6 +108,8 @@ const M_DIM = {
 const L_DIM = {
     BALL: {
         RADIUS: 28,
+        FORCE:0.02
+
     },
     WALL: {
         SIZE: 28
@@ -130,6 +137,8 @@ const L_DIM = {
 const XL_DIM = {
     BALL: {
         RADIUS: 32,
+        FORCE:0.04
+
     },
     WALL: {
         SIZE: 32
