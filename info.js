@@ -6,7 +6,13 @@ const SKILLS_TEXTURES =[
     "./assets/skills/laravel.png",
     "./assets/skills/php.png",
     "./assets/skills/python.png",
-    "./assets/skills/xd.png"
+    "./assets/skills/xd.png",
+    "./assets/skills/detail.png",
+    "./assets/skills/problem.png",
+    "./assets/skills/idea.png",
+    "./assets/skills/matter.png",
+    "./assets/skills/p5.png"
+
 ]
 
 let redOnImage, redOffImage, redClickedImage, greenOnImage, greenClickedImage

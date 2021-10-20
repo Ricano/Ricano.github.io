@@ -322,8 +322,6 @@ function createProject() {
             newB.body['description'] = MODAL_INFO.project2.description
             newB.body['logos'] = MODAL_INFO.project2.logos
             newB.body.render.sprite.texture = MODAL_INFO.project2.ball
-
-
         }
 
         superBalls.push(newB);
@@ -432,13 +430,14 @@ function createWorldElements() {
         }
     })
 
-    loadButton = new Box(WINDOW_WIDTH / 2, dimensions.BALL.RADIUS * 2, dimensions.BALL.RADIUS * 2 * 1.618, dimensions.BALL.RADIUS * 2, {
+    loadButton = new Box(WINDOW_WIDTH / 2, dimensions.BALL.RADIUS * 2, dimensions.BALL.RADIUS * 2 * 1.618, dimensions.BALL.RADIUS * 3, {
         isStatic: true,
         label: "loadButton",
         render: {
             sprite: {
                 xScale: dimensions.BALL.RADIUS / 60,
                 yScale: dimensions.BALL.RADIUS / 60,
+                yOffset:-dimensions.BALL.RADIUS/100,
                 texture: greenOnImage
 
             }
