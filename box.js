@@ -178,7 +178,7 @@ class Machine {
 class Walls {
     constructor(thickness, options = {
         render: {
-            fillStyle: "#000"
+            fillStyle: "#DCF3FF"
         }
     }) {
 
@@ -199,7 +199,7 @@ class Walls {
             render: {
                 sprite:{
                 },
-                fillStyle: "#000"
+                fillStyle: "#DCF3FF"
             }
         })
         this.leftPlatform.isStatic = true;
@@ -209,7 +209,7 @@ class Walls {
             friction:0.007,
 
             render: {
-                fillStyle: "#000"
+                fillStyle: "#DCF3FF"
             }
         })
         this.rightPlatform.isStatic = true;

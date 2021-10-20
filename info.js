@@ -173,8 +173,8 @@ const COLORS = {
     "GREEN": "#38A544",
     "YELLOW": "#E8D957",
     "VIOLET": "#B8A1C7",
-    "LIGHT-BLUE":"#83daff",
-    "DARK-BLUE": "#314E8B",
+    "LIGHT-BLUE":"#3891EE",
+    "DARK-BLUE": "#001166",
     "BLUE": "#0077A5" ,
     "BLACK": "#262629",
     "RED": "#D8333A",
@@ -210,7 +210,7 @@ const MODAL_INFO = {
         "logos": [
             "./assets/laravel.png",
             "./assets/xampp.png",
-            "./assets/mysql.png",
+            "./assets/skills/detail.png",
             "./assets/xd.svg",
             "./assets/drawio.png",
 

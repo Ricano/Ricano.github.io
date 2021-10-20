@@ -6,10 +6,12 @@
 html,
 body {
   height: 100%;
-  background-color: #f6fae9;
-  background-image: url("https://eskipaper.com/images/universe-background-1.jpg");
+  background-image: linear-gradient(to top, #56CCF2,#2F80ED);
+
+  /*background-image: url("https://eskipaper.com/images/universe-background-1.jpg");
   background-position: center;
   background-size: cover;
+  */
   align-items: center;
   display: flex;
   justify-content: center;
@@ -30,6 +32,27 @@ body {
 canvas{
   z-index: 3;
 }
+
+#load-skills{
+  position: absolute;
+  font-family: stick;
+  font-size: 1.5rem;
+  display: flex;
+  color: #3891EE;
+  /* 
+  color: #001166;
+  */
+  text-shadow: 2px 2px #ccc;
+  top: 17vh;
+  z-index: 2;
+}
+#load-arrow{
+  font-size: 2.5rem;
+  transform: translateY(-20px);
+ animation: loadArrow 0.75s infinite alternate ease-out;
+
+}
+
 .ricardo,
 .caetano {
   display: flex;
@@ -344,6 +367,20 @@ url('https://fonts.googleapis.com/css?family=Exo:400,700');
         transform: translateY(-2000px) rotate(380deg) scale(1);;
         opacity: 0.1;
          
+    }
+
+}
+
+
+@keyframes loadArrow {
+
+  0%{
+      transform: translateY(-20px);
+      margin: 0;
+    }
+    100%{
+      transform: translateY(-80px);;
+padding: 10px;
     }
 
 }

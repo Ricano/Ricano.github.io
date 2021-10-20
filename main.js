@@ -27,6 +27,8 @@ let walls,
 let balls = []
 let superBalls = []
 
+let loadAnimation = true;
+
 // P5 preload function
 function preload() {
 
@@ -47,6 +49,7 @@ function setup() {
 
 
     createWorldElements()
+
 
 
 
@@ -131,11 +134,25 @@ function draw() {
         (floor(Math.random() * 205) + 50).toString() + ")"
 
     if (Math.random() < 0.1)
-        titleString.style.textShadow = textShadow
+        titleString.style.textShadow = textShadow;
 
     numberBallsInsideMachine = countBalls()
-    transformButton.isActive = (numberBallsInsideMachine > 2)
-    transformButton.body.render.fillStyle = transformButton.isActive ? COLORS.GREEN : COLORS.YELLOW
+    if (numberBallsInsideMachine > 2){
+        transformButton.isActive = true;
+        
+        document.getElementById("load-arrow").style.animationPlayState= "paused"
+    } 
+    else{
+        document.getElementById("load-arrow").style.animationPlayState= "running"
+        
+        transformButton.isActive = false;
+    }
+
+
+    //transformButton.body.render.fillStyle = transformButton.isActive ? COLORS.GREEN : COLORS.YELLOW
+
+
+
     if (!cupClicked)
         cup.bottomBody.render.sprite.texture = transformButton.isActive ? redOnImage : redOffImage
 
@@ -168,9 +185,6 @@ function draw() {
             i--;
         }
     }
-
-
-console.log(balls.length, world.bodies.length-8)
 
 }
 
@@ -437,7 +451,7 @@ function createWorldElements() {
             sprite: {
                 xScale: dimensions.BALL.RADIUS / 60,
                 yScale: dimensions.BALL.RADIUS / 60,
-                yOffset:-dimensions.BALL.RADIUS/100,
+                yOffset: -dimensions.BALL.RADIUS / 100,
                 texture: greenOnImage
 
             }
@@ -455,11 +469,4 @@ function createWorldElements() {
 
     })
     transformButton['isActive'] = false;
-}
-
-function isOffScreen(ball) {
-
-    balls.length()
-    console.log(ball.body.position.y > WINDOW_HEIGHT + 100)
-
 }
