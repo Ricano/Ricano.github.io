@@ -17,6 +17,27 @@ body {
   justify-content: center;
   margin: 0;
 }
+@media only screen and (orientation:landscape) and  (max-width: 768px){
+
+  #turn-screen{
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100vw;
+  height: 100vh;
+  background-color: yellow;
+  color: #001166;
+  font-size: 2rem;
+  font-family: stick;
+  text-align: center;
+  z-index: 10;
+  }
+  
+}
+
+
 .name {
   position: absolute;
   font-family: stick;
