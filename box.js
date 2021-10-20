@@ -75,19 +75,12 @@ class Circle {
         this.r = r;
         this.inMachine = false;
 
-    }
-
-
-    show() {
-        const pos = this.body.position;
-        const angle = this.body.angle;
-        push();
-        translate(pos.x, pos.y);
-        rotate(angle);
-        noStroke();
-        fill(255, 0, 255);
-        ellipse(0, 0, this.r * 2);
-        pop();
+        this.isOffScreen = ()=>{
+            return (this.body.position.y > WINDOW_HEIGHT+100)
+        }
+        this.removeFromWorld = ()=>{
+            Matter.Composite.remove(world, this.body) 
+        }
     }
 }
 

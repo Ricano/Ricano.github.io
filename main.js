@@ -29,7 +29,7 @@ let superBalls = []
 
 // P5 preload function
 function preload() {
-    
+
 }
 
 assignBodysDimensionsBasedOnScreenSize()
@@ -113,7 +113,7 @@ function setup() {
     // run the renderer
     Render.run(render);
 
-   //  Matter.Engine.run(engine)
+    //  Matter.Engine.run(engine)
 
 }
 let titleString = document.getElementsByClassName('name')[0]
@@ -122,7 +122,7 @@ let gitHubIcon = document.getElementById("github-icon");
 
 function draw() {
 
-   
+
 
 
     let textShadow =
@@ -130,7 +130,7 @@ function draw() {
         (floor(Math.random() * 205)).toString() + "," +
         (floor(Math.random() * 205) + 50).toString() + ")"
 
-     if (Math.random() < 0.1)
+    if (Math.random() < 0.1)
         titleString.style.textShadow = textShadow
 
     numberBallsInsideMachine = countBalls()
@@ -141,8 +141,8 @@ function draw() {
 
     if (!loadClicked)
         loadButton.body.render.sprite.texture = greenOnImage
- // update the Matter Engine with every cycle of P5
- Matter.Engine.update(engine, [delta = 16.666], [correction = 1])
+    // update the Matter Engine with every cycle of P5
+    Matter.Engine.update(engine, [delta = 16.666], [correction = 1])
 
     // background(20,20,20);
     // balls.forEach(element => {
@@ -158,6 +158,20 @@ function draw() {
     // circle2.show()
 
     // newt.show()
+
+
+
+    for (let i = 0; i < balls.length; i++) {
+        if (balls[i].isOffScreen()) {
+            balls[i].removeFromWorld();
+            balls.splice(i, 1);
+            i--;
+        }
+    }
+
+
+console.log(balls.length, world.bodies.length-8)
+
 }
 
 // reload page if screen size changes 
@@ -195,18 +209,18 @@ function countBalls() {
 }
 
 function loadSkills() {
-    let dimensionScale = dimensions.BALL.RADIUS/32
+    let dimensionScale = dimensions.BALL.RADIUS / 32
     for (let i = 0; i < 3; i++) {
 
-        let ballScale = Math.random() * 0.5 + 0.5 
+        let ballScale = Math.random() * 0.5 + 0.5
 
 
-let randomTexture = floor(random() * SKILLS_TEXTURES.length)
-let texture =  SKILLS_TEXTURES[randomTexture]
+        let randomTexture = floor(random() * SKILLS_TEXTURES.length)
+        let texture = SKILLS_TEXTURES[randomTexture]
 
 
         var redBall = new Circle(-dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS, dimensions.BALL.RADIUS,
-            dimensions.BALL.RADIUS* ballScale, {
+            dimensions.BALL.RADIUS * ballScale, {
                 label: "redBall",
                 slope: 0,
                 restitution: 0.6,
@@ -218,10 +232,10 @@ let texture =  SKILLS_TEXTURES[randomTexture]
                     y: 0
                 },
                 render: {
-                    sprite:{
-                        texture:texture,
-                        yScale:dimensionScale*ballScale,
-                        xScale:dimensionScale*ballScale,
+                    sprite: {
+                        texture: texture,
+                        yScale: dimensionScale * ballScale,
+                        xScale: dimensionScale * ballScale,
                     }
                 },
             })
@@ -229,14 +243,14 @@ let texture =  SKILLS_TEXTURES[randomTexture]
 
     }
     for (let i = 0; i < 3; i++) {
-        let ballScale = Math.random() * 0.5 + 0.5 
+        let ballScale = Math.random() * 0.5 + 0.5
 
         let randomTexture = floor(random() * SKILLS_TEXTURES.length)
-        let texture =  SKILLS_TEXTURES[randomTexture]
+        let texture = SKILLS_TEXTURES[randomTexture]
 
         var blueBall = new Circle(WINDOW_WIDTH + dimensions.BALL.RADIUS * 2 - i * dimensions.BALL.RADIUS,
             dimensions.BALL.RADIUS,
-            dimensions.BALL.RADIUS* ballScale, {
+            dimensions.BALL.RADIUS * ballScale, {
                 label: "blueBall",
                 slope: 0,
                 restitution: 0.7,
@@ -248,12 +262,12 @@ let texture =  SKILLS_TEXTURES[randomTexture]
                     y: 0
                 },
                 render: {
-                    sprite:{
-                        texture:texture,
-                        yScale:dimensionScale*ballScale,
-                        xScale:dimensionScale*ballScale,
+                    sprite: {
+                        texture: texture,
+                        yScale: dimensionScale * ballScale,
+                        xScale: dimensionScale * ballScale,
                     }
-                }   
+                }
             })
         balls.push(blueBall);
     }
@@ -262,7 +276,7 @@ let texture =  SKILLS_TEXTURES[randomTexture]
 function createProject() {
     setTimeout(() => {
 
-let dimensionScale = dimensions.BALL.RADIUS/32
+        let dimensionScale = dimensions.BALL.RADIUS / 32
 
         var newB = new Circle(WINDOW_WIDTH / 2, transformButton.body.position.y + dimensions.BALL.RADIUS * 4, dimensions.BALL.RADIUS * 2, {
             label: "superBall",
@@ -274,10 +288,10 @@ let dimensionScale = dimensions.BALL.RADIUS/32
                 x: 0,
                 y: 0
             },
-            render:{
-                sprite:{
-                    xScale:dimensionScale,
-                    yScale:dimensionScale
+            render: {
+                sprite: {
+                    xScale: dimensionScale,
+                    yScale: dimensionScale
                 }
             }
         })
@@ -299,7 +313,7 @@ let dimensionScale = dimensions.BALL.RADIUS/32
             newB.body['logos'] = MODAL_INFO.project1.logos
             newB.body.render.sprite.texture = MODAL_INFO.project1.ball
 
-//            newB.body.render.fillStyle = MODAL_INFO.project1.color
+            //            newB.body.render.fillStyle = MODAL_INFO.project1.color
 
         } else {
             newB.body['title'] = MODAL_INFO.project2.title
@@ -414,7 +428,7 @@ function createWorldElements() {
         isStatic: true,
         render: {
             visible: false,
-           
+
         }
     })
 
@@ -423,10 +437,10 @@ function createWorldElements() {
         label: "loadButton",
         render: {
             sprite: {
-                xScale: dimensions.BALL.RADIUS/60,
-                yScale: dimensions.BALL.RADIUS/60,
+                xScale: dimensions.BALL.RADIUS / 60,
+                yScale: dimensions.BALL.RADIUS / 60,
                 texture: greenOnImage
-                
+
             }
             //fillStyle: COLORS.GREEN
         }
@@ -442,4 +456,11 @@ function createWorldElements() {
 
     })
     transformButton['isActive'] = false;
+}
+
+function isOffScreen(ball) {
+
+    balls.length()
+    console.log(ball.body.position.y > WINDOW_HEIGHT + 100)
+
 }
