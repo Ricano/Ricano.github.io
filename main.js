@@ -192,7 +192,6 @@ function draw() {
             i--;
         }
     }
-    console.log(superBalls[0])
 
 }
 

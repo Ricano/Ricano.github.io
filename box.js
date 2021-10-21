@@ -67,7 +67,7 @@ class Circle {
         restitution: 0.6,
         frictionStatic: 0.001,
         frictionAir: 0.001,
-        friction: 0
+        friction: 0.05
 
     }) {
         this.body = Matter.Bodies.circle(x, y, r, o);

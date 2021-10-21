@@ -65,7 +65,7 @@ const S_DIM = {
     },
     CUP: {
         'X': WINDOW_WIDTH * 0.5,
-        'Y': WINDOW_HEIGHT * 0.35,
+        'Y': WINDOW_HEIGHT * 0.45,
         'SIZE': 100,
         'SCALE': 0.5
 
